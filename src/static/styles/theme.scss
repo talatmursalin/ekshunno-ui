@@ -1,0 +1,21 @@
+/**
+ * Customized version of bootstrap using variables from _variables.scss.
+ * This file is loaded via separate loader thus allowing to use original bootstrap classes (e.g. .btn-default) through out the app.
+ */
+
+// @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,800');
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap");
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "variables";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootstrap-vue/dist/bootstrap-vue.css";
+@import "mixins";
+@import "base";
+@import "overrides";
+@import "general";
+@import "utils";
+
+body {
+  font-family: "Roboto Mono", monospace;
+}
