@@ -254,25 +254,25 @@ export default {
       this.saveEditorState();
       this.$store
         .dispatch('postCode', this.submission)
-        .then((uuid) => {
-          this.$store
-            .dispatch('startPolling', uuid)
-            .then((result) => {
-              if (result) {
-                this.result = result;
-              }
-            })
-            .catch((err) => {
-              this.result.verdict = 'UE';
-              this.output = err;
-            })
-            .finally(() => {
-              this.activateLoader = false;
-            });
+        .then((room) => {
+          console.log(room);
+          const wssocket = new WebSocket('ws://localhost:8000/ws/api/v1/result/asdf');
+          wssocket.onopen = this.wsOpen;
+          wssocket.onclose = this.wsClose;
+          wssocket.onmessage = this.wsMsg;
         })
         .catch((err) => {
           this.showMessage(err, 'danger');
         });
+    },
+    wsOpen(event) {
+      console.log('open', event);
+    },
+    wsClose(event) {
+      console.log('closed', event);
+    },
+    wsMsg(event) {
+      console.log(event);
     },
     showMessage(msg, type) {
       this.message = msg;

@@ -7,6 +7,8 @@ export default {
             'content-type': 'application/json',
             Authorization: null,
         },
+        httpProtocol: 'http://',
+        wsProtocol: 'ws://',
         endpoint: '', // 'http://localhost:8000',
     },
     get(url) {
@@ -21,5 +23,12 @@ export default {
             headers: this.defaults.headers,
             body: JSON.stringify(payload),
         });
+    },
+    websocket(url) {
+        console.log('get websocket');
+        const wsendpoint = 'localhost:8000';
+        const ws = new WebSocket(this.wsProtocol + wsendpoint + url);
+        console.log(this.wsProtocol + wsendpoint + this.url);
+        return ws;
     },
 };

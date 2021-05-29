@@ -43,7 +43,7 @@ export default {
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.status === 'OK') {
-                        return data.uuid;
+                        return data.room;
                     }
                     throw Error('submit failed');
                 });

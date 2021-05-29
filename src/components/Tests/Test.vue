@@ -1,19 +1,25 @@
 <template>
   <div class="test">
-      <div class="noborderinput">
-    <b-form class="d-sm-down-none ml-5" inline>
-      <b-form-group>
-        <b-input-group class="input-group input-group-no-border">
-          <template v-slot:prepend>
-            <b-input-group-text>
-              <i class="la la-search" />
-            </b-input-group-text>
-          </template>
-          <b-form-input id="search-input" placeholder="Search Dashboard" />
-        </b-input-group>
-      </b-form-group>
-    </b-form>
-  </div>
+    <div class="noborderinput">
+      <b-form
+        class="d-sm-down-none ml-5"
+        inline
+      >
+        <b-form-group>
+          <b-input-group class="input-group input-group-no-border">
+            <template v-slot:prepend>
+              <b-input-group-text>
+                <i class="la la-search" />
+              </b-input-group-text>
+            </template>
+            <b-form-input
+              id="search-input"
+              placeholder="Search Dashboard"
+            />
+          </b-input-group>
+        </b-form-group>
+      </b-form>
+    </div>
   </div>
 </template>
 
