@@ -214,6 +214,7 @@ export default {
       activateLoader: false,
       showWaringModal: false,
       warningModalContent: '',
+      wssocket: null,
       memOptions: [
         { text: '512', value: '512m' },
         { text: '256', value: '256m' },
@@ -255,24 +256,29 @@ export default {
       this.$store
         .dispatch('postCode', this.submission)
         .then((room) => {
-          console.log(room);
-          const wssocket = new WebSocket('ws://localhost:8000/ws/api/v1/result/asdf');
-          wssocket.onopen = this.wsOpen;
-          wssocket.onclose = this.wsClose;
-          wssocket.onmessage = this.wsMsg;
+          const wsScheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
+          const url = `${wsScheme}://${window.location.host}/ws/api/v1/result/${room}`;
+          this.wssocket = new WebSocket(url);
+          this.wssocket.onopen = this.wsOpen;
+          this.wssocket.onclose = this.wsClose;
+          this.wssocket.onmessage = this.wsMsg;
         })
         .catch((err) => {
+          this.activateLoader = false;
           this.showMessage(err, 'danger');
         });
     },
-    wsOpen(event) {
-      console.log('open', event);
+    wsOpen() {
+      // console.log('open', event);
     },
-    wsClose(event) {
-      console.log('closed', event);
+    wsClose() {
+      // console.log('closed', event);
     },
     wsMsg(event) {
-      console.log(event);
+      const verdictData = JSON.parse(event.data).data;
+      this.result = verdictData;
+      this.activateLoader = false;
+      this.wssocket.close();
     },
     showMessage(msg, type) {
       this.message = msg;
