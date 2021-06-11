@@ -7,7 +7,8 @@ export default {
             'content-type': 'application/json',
             Authorization: null,
         },
-        endpoint: process.env.VUE_APP_DEV_MODE === 'true' ? '' : 'https://ekshunno.com',
+        endpoint: process.env.VUE_APP_API_ENDPOINT,
+        socketEndPoint: process.env.VUE_APP_SOCKET_ENDPOINT,
     },
     get(url) {
         return fetch(this.defaults.endpoint + url, {

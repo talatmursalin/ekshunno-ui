@@ -4,26 +4,6 @@
 
 import request from '@/request';
 
-function createPromise(executor) {
-    let callback;
-
-    function resolve(resolution, arg) {
-        Promise.resolve().then(() => {
-            callback[resolution](arg);
-        });
-    }
-    try {
-        executor(resolve.bind(null, 'fulfill'), resolve.bind(null, 'reject'));
-    } catch (e) {
-        resolve('reject', e);
-    }
-    return Promise.resolve({
-        then(fulfill, reject) {
-            callback = { fulfill, reject };
-        },
-    });
-}
-
 export default {
     state: {
         problem: null,
@@ -39,35 +19,14 @@ export default {
 
     actions: {
         postCode(_, credentials) {
-            return request.post('/api/v1/execute', credentials)
-                .then((res) => res.json())
-                .then((data) => {
-                    if (data.status === 'OK') {
-                        return data.room;
+            return request.post('/api/v1/code/submit', credentials)
+                .then((res) => {
+                    if (res.status === 200) {
+                        return res.json();
                     }
                     throw Error('submit failed');
-                });
-        },
-        startPolling(_, uuid) {
-            return createPromise((resolve, reject) => {
-                let pollCnt = 0;
-                const interval = setInterval(() => {
-                    pollCnt += 1;
-                    // console.log(`check cnt: ${pollCnt}`);
-                    if (pollCnt > 15) {
-                        clearInterval(interval);
-                        reject('Submit Timed Out. Please Try Again.');
-                    }
-                    request.get(`/api/v1/result/${uuid}`)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            if (Object.keys(data).length > 0) {
-                                clearInterval(interval);
-                                resolve(data);
-                            }
-                        });
-                }, 1000);
-            });
+                })
+                .then((data) => data.submissionRoom);
         },
         getLanguages() {
             return request.get('/api/v1/languages')
