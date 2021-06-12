@@ -264,7 +264,12 @@ export default {
       }
       this.activateLoader = true;
       this.submission.src = src;
-      const cloneSubmission = { ...this.submission, src: btoa(src) };
+      this.submission.time = parseFloat(this.submission.time);
+      const cloneSubmission = {
+        ...this.submission,
+        src: btoa(src),
+      };
+      // console.log(cloneSubmission);
       this.saveEditorState();
       this.$store
         .dispatch('postCode', { submission: cloneSubmission })
