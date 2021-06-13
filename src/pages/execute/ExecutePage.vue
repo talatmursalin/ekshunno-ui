@@ -256,20 +256,29 @@ export default {
         // socket.disconnect();
       });
     },
+    validateSubmission() {
+      if (this.submission.src.trim().length === 0) {
+        this.showMessage('Source is empty!', 'danger');
+        return false;
+      }
+      if (this.submission.time < 0 || this.submission.time > 10) {
+        this.showMessage('Time limit must be between 0 to 10', 'danger');
+        return false;
+      }
+      return true;
+    },
     codeSubmitted(src) {
       this.message = null;
-      if (src.trim().length === 0) {
-        this.showMessage('Source is empty!', 'warning');
-        return;
-      }
-      this.activateLoader = true;
       this.submission.src = src;
       this.submission.time = parseFloat(this.submission.time);
+      if (this.validateSubmission() === false) {
+        return;
+      }
       const cloneSubmission = {
         ...this.submission,
         src: btoa(src),
       };
-      // console.log(cloneSubmission);
+      this.activateLoader = true;
       this.saveEditorState();
       this.$store
         .dispatch('postCode', { submission: cloneSubmission })
@@ -285,8 +294,6 @@ export default {
         });
     },
     updateState(msg) {
-      // console.log('received', msg);
-      // update veridct and close loader
       const data = JSON.parse(msg);
       this.result.verdict = data.Verdict;
       this.result.time = data.Time;
