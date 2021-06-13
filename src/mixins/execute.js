@@ -95,6 +95,7 @@ export default {
                             mode: lang.mode,
                             precode: atob(lang.precode),
                         });
+                        // console.log(lang.id, lang.compilers);
                         this.compilerData[lang.id] = lang.compilers;
                     });
                     if (languageData.length === 0) {

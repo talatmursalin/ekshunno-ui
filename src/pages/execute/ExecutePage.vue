@@ -188,12 +188,14 @@
 </template>
 
 <script>
+import io from 'socket.io-client';
 import CodeEditor from '@/components/codeeditor/CodeEditor.vue';
 import ModalLoader from '@/components/ModalLoader/ModalLoader.vue';
 import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
 import PageWithWidget from '@/components/Layout/PageWithWidget.vue';
 import NoborderInput from '@/components/NoborderInput/NoborderInput.vue';
 import executeMixin from '@/mixins/execute';
+import request from '@/request';
 
 export default {
   name: 'ExecutePage',
@@ -214,13 +216,13 @@ export default {
       activateLoader: false,
       showWaringModal: false,
       warningModalContent: '',
-      wssocket: null,
+      socket: null,
       memOptions: [
-        { text: '512', value: '512m' },
-        { text: '256', value: '256m' },
+        { text: '512', value: 512 },
+        { text: '256', value: 256 },
       ],
       submission: {
-        memory: '512m',
+        memory: 512,
         time: 0,
         input: '',
       },
@@ -243,42 +245,61 @@ export default {
       return 'red-color';
     },
   },
+  created() {
+    this.connectSocket();
+  },
   methods: {
+    connectSocket() {
+      this.socket = io(request.defaults.socketEndPoint);
+      this.socket.on('stateUpdateEvent', (msg) => {
+        this.updateState(msg);
+        // socket.disconnect();
+      });
+    },
+    validateSubmission() {
+      if (this.submission.src.trim().length === 0) {
+        this.showMessage('Source is empty!', 'danger');
+        return false;
+      }
+      if (this.submission.time < 0 || this.submission.time > 10) {
+        this.showMessage('Time limit must be between 0 to 10', 'danger');
+        return false;
+      }
+      return true;
+    },
     codeSubmitted(src) {
       this.message = null;
-      if (src.trim().length === 0) {
-        this.showMessage('Source is empty!', 'warning');
+      this.submission.src = src;
+      this.submission.time = parseFloat(this.submission.time);
+      if (this.validateSubmission() === false) {
         return;
       }
+      const cloneSubmission = {
+        ...this.submission,
+        src: btoa(src),
+      };
       this.activateLoader = true;
-      this.submission.src = src;
       this.saveEditorState();
       this.$store
-        .dispatch('postCode', this.submission)
+        .dispatch('postCode', { submission: cloneSubmission })
         .then((room) => {
-          const wsScheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
-          const url = `${wsScheme}://${window.location.host}/ws/api/v1/result/${room}`;
-          this.wssocket = new WebSocket(url);
-          this.wssocket.onopen = this.wsOpen;
-          this.wssocket.onclose = this.wsClose;
-          this.wssocket.onmessage = this.wsMsg;
+          if (this.socket.disconnected) {
+            this.connectSocket();
+          }
+          this.socket.emit('joinRoomEvent', room);
         })
         .catch((err) => {
           this.activateLoader = false;
           this.showMessage(err, 'danger');
         });
     },
-    wsOpen() {
-      // console.log('open', event);
-    },
-    wsClose() {
-      // console.log('closed', event);
-    },
-    wsMsg(event) {
-      const verdictData = JSON.parse(event.data).data;
-      this.result = verdictData;
+    updateState(msg) {
+      const data = JSON.parse(msg);
+      this.result.verdict = data.Verdict;
+      this.result.time = data.Time;
+      this.result.memory = (data.Memory).toFixed(2);
+      this.result.output = data.Output;
       this.activateLoader = false;
-      this.wssocket.close();
     },
     showMessage(msg, type) {
       this.message = msg;

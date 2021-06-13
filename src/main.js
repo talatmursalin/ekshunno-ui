@@ -18,6 +18,7 @@ Vue.config.productionTip = false;
 // Init plugin
 Vue.use(BootstrapVue);
 Vue.use(Toasted, { duration: 10000 });
+
 new Vue({
     render: (h) => h(App),
     router,
