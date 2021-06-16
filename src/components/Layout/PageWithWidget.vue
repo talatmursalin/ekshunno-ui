@@ -44,7 +44,6 @@ export default {
 <style>
 .match-content-height {
   width: 85%;
-  margin: auto;
-  min-height: 780px;
+  margin: 0 auto;
 }
 </style>

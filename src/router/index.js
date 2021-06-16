@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 import Vue from 'vue';
 import Router from 'vue-router';
-import SimpleLayout from '@/components/Layout/SimpleLayout.vue';
+import DefaultLayout from '@/components/Layout/DefaultLayout.vue';
 import ExecutePage from '@/pages/execute/ExecutePage.vue';
 import Error404 from '@/pages/errors/404.vue';
 import AboutPage from '@/pages/about/AboutPage.vue';
@@ -14,7 +14,7 @@ export default new Router({
     mode: 'history',
     routes: [{
         path: '/',
-        component: SimpleLayout,
+        component: DefaultLayout,
         children: [{
             path: '/',
             name: 'Execute',

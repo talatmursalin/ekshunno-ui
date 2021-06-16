@@ -17,11 +17,14 @@ export default {
 
 <style>
 .contentFooter {
-    /* position: absolute; */
-    /* bottom: 15px; */
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:60px;
     color: #6c757d;
-    margin-top: 10px;
-    padding: 10px 0px 10px 10px;
+    line-height: 60px;
+    padding-left: 15px;
+    /* background:#6cf; */
 }
 
 .red{

@@ -1,10 +1,7 @@
 <template>
-  <PageWithWidget>
-    <div
-      slot="main-page"
-      class="about mt-5"
-    >
-      <section class="sub-section">
+  <PageWithWidget class="match-content-height">
+    <template slot="main-page">
+      <section class="sub-section about">
         <p>
           <a href="/"><img
             src="../../assets/logo.png"
@@ -12,7 +9,7 @@
           ></a> is a simple online code editor and executor.
         </p>
       </section>
-      <section class="sub-section mt-5 tech">
+      <section class="sub-section tech">
         <h5>Technologies</h5>
         <a href="https://codemirror.net/"><img
           src="../../assets/codeMirror.png"
@@ -27,7 +24,7 @@
           alt="django"
         ></a>
       </section>
-      <section class="sub-section list-padding mt-5">
+      <section class="sub-section rounded-list">
         <h5>Instructions</h5>
         <ul>
           <li>
@@ -58,7 +55,7 @@
           </li>
         </ul>
       </section>
-      <section class="subsection list-padding mt-5">
+      <section class="sub-section rounded-list">
         <h5>Verdicts</h5>
         <ul>
           <li>
@@ -86,7 +83,7 @@
           </li>
         </ul>
       </section>
-    </div>
+    </template>
   </PageWithWidget>
 </template>
 
@@ -104,16 +101,16 @@ export default {
 
 <style scoped>
 
-.about{
-    height: 100vh;
-}
-
-.tech h5{
-  margin-bottom: 20px;
+.sub-section{
+  margin-top: 50px;
 }
 
 .about p img{
     height: 30px;
+}
+
+.tech h5{
+  margin-bottom: 20px;
 }
 
 .tech a{
@@ -123,26 +120,24 @@ export default {
 
 .tech a img{
   height: 40px;
-  padding: 0px 20px;
+  margin: 10px;
+  /* padding: 20px; */
   /* border: 1px solid #eee; */
   /* border-radius: 4px; */
 }
 
-.list-padding ul li{
-    padding: 10px 0px;
-}
-
-ul li {
+.rounded-list ul li{
+  padding: 10px 0px;
   display: block;
   position: relative;
-    margin-left: 30px;
+  margin-left: 30px;
 }
 
 /* ul li:not(:last-child) {
   margin-bottom: 16px;
 } */
 
-ul li:before {
+.rounded-list ul li:before {
   content: "";
   position: absolute;
   top: 1.2em;
@@ -168,5 +163,15 @@ color:pink;
 
 .violet{
     color:purple;
+}
+
+@media only screen and (max-width: 700px) {
+  .sub-section{
+    margin-top: 30px;
+  }
+
+  .tech a img{
+    margin: 5px;
+  }
 }
 </style>
