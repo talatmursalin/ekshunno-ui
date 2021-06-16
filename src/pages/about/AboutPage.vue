@@ -15,13 +15,25 @@
           src="../../assets/codeMirror.png"
           alt="codeMirror"
         ></a>
+        <a href="https://vuejs.org/"><img
+          src="../../assets/vue.png"
+          alt="vue"
+        ></a>
+        <a href="https://nodejs.org/en/"><img
+          src="../../assets/node.png"
+          alt="nodejs"
+        ></a>
         <a href="https://www.docker.com/"><img
           src="../../assets/docker.png"
           alt="docker"
         ></a>
-        <a href="https://www.djangoproject.com/"><img
-          src="../../assets/django.png"
-          alt="django"
+        <a href="https://golang.org/"><img
+          src="../../assets/golang.svg"
+          alt="golang"
+        ></a>
+        <a href="https://www.rabbitmq.com/"><img
+          src="../../assets/rabbitmq.svg"
+          alt="rabbitmq"
         ></a>
       </section>
       <section class="sub-section rounded-list">
@@ -83,6 +95,13 @@
           </li>
         </ul>
       </section>
+      <section class="sub-section rounded-list">
+        <h5>Bug Report</h5>
+        <p>
+          The project is still under development and tends to have several bugs.
+          Please feel free to report <a href="https://github.com/talatmursalin/ekshunno-ui/issues">here</a> if you found any. TIA.
+        </p>
+      </section>
     </template>
   </PageWithWidget>
 </template>
@@ -119,7 +138,8 @@ export default {
 }
 
 .tech a img{
-  height: 40px;
+  max-width: 120px;
+  max-height: 35px;
   margin: 10px;
   /* padding: 20px; */
   /* border: 1px solid #eee; */
@@ -168,10 +188,6 @@ color:pink;
 @media only screen and (max-width: 700px) {
   .sub-section{
     margin-top: 30px;
-  }
-
-  .tech a img{
-    margin: 5px;
   }
 }
 </style>
