@@ -1,9 +1,11 @@
 <template>
-  <div class="page-container">
+  <div class="encloser">
     <SimpleHeader />
-    <transition name="router-animation">
-      <router-view />
-    </transition>
+    <div class="page-container">
+      <transition name="router-animation">
+        <router-view />
+      </transition>
+    </div>
     <Footer />
   </div>
 </template>
@@ -28,6 +30,8 @@ export default {
    min-height:100%;
    position:relative;
    padding-bottom:60px;
+   max-width: 1900px;
+   margin : 0 auto;
 }
 
 </style>
