@@ -1,6 +1,6 @@
 <template>
-  <header class="site-header">
-    <div class="wrapper site-header__wrapper">
+  <div class="navbar">
+    <div class="navbar-wrapper">
       <router-link
         class="brand"
         :to="{name:'Execute'}"
@@ -8,134 +8,138 @@
         <img
           src="../../assets/logo.png"
           alt="ekshunno"
+          class="logo"
         >
       </router-link>
-
-      <nav class="nav">
-        <button
-          class="nav__toggle"
-          aria-expanded="false"
-          type="button"
-        >
-          menu
-        </button>
-        <ul class="nav__wrapper">
-          <li class="nav__item">
+      <nav>
+        <ul :class="{showMenu:dropDown}">
+          <li>
             <router-link
               class="nav-link"
               :to="{name:'About'}"
               exact
+              @click.native="hideMenu"
             >
               About
             </router-link>
           </li>
         </ul>
       </nav>
+      <img
+        src="../../assets/burger2.svg"
+        alt="menu"
+        class="menu-icon"
+        @click="showMenu"
+      >
     </div>
-  </header>
+  </div>
 </template>
-
 <script>
 export default {
   name: 'SimpleHeader',
+  data() {
+    return {
+      dropDown: false,
+    };
+  },
+  methods: {
+    showMenu() {
+      this.dropDown = !this.dropDown;
+    },
+    hideMenu() {
+      this.dropDown = false;
+    },
+  },
 };
 </script>
 
-<style>
-.brand {
-  font-weight: bold;
-  font-size: 20px;
+<style lang="css" scoped>
+
+.navbar{
+    width: 100%;
+    align-items: center;
+    background: #28282B;
 }
 
-.brand img {
-  height: 40px;
-  width: auto;
-  /* line-height: 60px; */
-  margin-top:-5px;
+.navbar-wrapper{
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    height: 100%;
 }
 
-.site-header {
-  position: relative;
-  background-color: #222;
-  height: 60px;
+.logo{
+    width: 85px;
+    cursor: pointer;
+    margin: 10px 0;
 }
 
-.site-header__wrapper {
-  width: 85%;
-  /* padding-top: 1rem; */
-  /* padding-bottom: 1rem; */
-  margin: 0 auto;
+.menu-icon{
+    width:40px;
+    height: auto;
+    cursor: pointer;
+    display: none;
 }
 
-.nav__wrapper li{
-  text-decoration: none;
-  color: #fff;
+nav{
+    flex: 1;
+    text-align: right;
 }
 
-.nav__wrapper .nav__item a {
-  display: block;
-  padding: 10px;
-  color: #fff;
-  text-decoration: none;
-  padding-top: 15px;
-  font-size: 16px;
+nav ul{
+    margin: 0px;
+    margin-top:12px;
 }
 
-.nav__wrapper .nav__item a:hover{
-  color: var(--yellow);
-  /* transform: scale(1.02); */
-  /* font-size: 19px; */
+nav ul li{
+    list-style: none;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+nav ul li a:hover{
+    color: var(--yellow);
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
 }
 
-.nav__toggle {
-  display: none;
+@media only screen and (max-width:700px) {
+    .menu-icon{
+        display: block;
+    }
+
+    .showMenu{
+        transition: all 0.5s ease;
+        height: 60px;
+        border-radius: 4px;
+    }
+
+    nav ul{
+        width: 100%;
+        position: absolute;
+        top: 45px;
+        right: 0;
+        z-index: 5;
+        background: #28282B;
+        /* display: none; */
+        height: 0px;
+        transition: all 0.5s ease;
+    }
+
+    nav ul li{
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
 }
 
-@media (min-width: 600px) {
-  .site-header__wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-}
-@media (min-width: 600px) {
-  .nav__wrapper {
-    display: flex;
-  }
-}
-
-@media (max-width: 599px) {
-  .nav__wrapper {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    left: 0;
-    z-index: -1;
-    background-color: #d9f0f7;
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(-100%);
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-  }
-  .nav__wrapper.active {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 599px) {
-  .nav__toggle {
-    display: block;
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-  }
-}
 </style>

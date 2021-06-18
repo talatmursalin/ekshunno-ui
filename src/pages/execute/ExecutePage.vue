@@ -20,7 +20,7 @@
       </b-alert>
       <div class="mt-3">
         <div class="row justify-content-between">
-          <div class="col-md-5">
+          <div class="col-md-4">
             <NoborderInput>
               <b-input-group class="input-group input-group-no-border first">
                 <template v-slot:prepend>
@@ -51,7 +51,7 @@
               </b-input-group>
             </NoborderInput>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-4">
             <NoborderInput>
               <b-input-group class="input-group input-group-no-border first">
                 <template v-slot:prepend>
@@ -327,6 +327,16 @@ export default {
 
 .mt-custom-3{
   margin-top: 32px;
+}
+
+@media only screen and (max-width:700px) {
+  .noborderinput .input-group-lg .input-group-prepend {
+    display: none;
+  }
+
+  .noborderinput .input-group-lg .input-group-append{
+   display: none;
+  }
 }
 
 </style>

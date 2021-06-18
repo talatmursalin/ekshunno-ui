@@ -74,4 +74,17 @@ export default {
 
 /*specific-lg*/
 
+@media only screen and (max-width:700px) {
+  .noborderinput .input-group-prepend {
+    max-width: 40px;
+  }
+}
+
+@media only screen and (max-width: 320px){
+  .noborderinput .input-group-append .input-group-text{
+    max-width: 2px;
+    color: transparent;
+  }
+}
+
 </style>
