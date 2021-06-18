@@ -63,6 +63,7 @@ export default {
 
 .navbar-wrapper{
     width: 85%;
+    max-width: 1600px;
     margin: 0 auto;
     display: flex;
     height: 100%;
