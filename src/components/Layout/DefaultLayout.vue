@@ -26,10 +26,14 @@ export default {
 
 <style>
 
+.encloser{
+  min-height:100vh;
+  position:relative;
+  padding-bottom:60px;
+}
+
 .page-container {
-   min-height:100%;
-   position:relative;
-   padding-bottom:60px;
+
    max-width: 1900px;
    margin : 0 auto;
 }
