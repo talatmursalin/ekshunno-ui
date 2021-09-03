@@ -8,7 +8,7 @@
           class="pull-right"
           type="checkbox"
           @change="changeTheme"
-        >
+        />
         <div class="slider round">
           <span class="on">Dark</span><span class="off">Light</span>
         </div>
@@ -16,18 +16,14 @@
       <div id="codearea" />
     </div>
     <div class="btns">
-      <button
-        class="btn btn-primary btn-lg btn-block"
-        @click="submitSolution"
-      >
-        submit
+      <button class="btn btn-primary btn-lg btn-block" @click="submitSolution">
+        RUN
       </button>
     </div>
   </div>
 </template>
 
 <script>
-
 // import jQuery from 'jquery/dist/jquery';
 
 /* eslint-disable import/extensions */
@@ -120,7 +116,9 @@ export default {
       this.editor.setOption('fullScreen', !this.editor.getOption('fullScreen'));
     },
     exitFullScreen() {
-      if (this.editor.getOption('fullScreen')) this.editor.setOption('fullScreen', false);
+      if (this.editor.getOption('fullScreen')) {
+        this.editor.setOption('fullScreen', false);
+      }
     },
     setUpEditor() {
       this.editor = CodeMirror(document.getElementById('codearea'), {
@@ -159,8 +157,7 @@ export default {
       this.setEditorValue();
     },
   },
-
 };
 </script>
 
-<style src='./codeeditor.css'/>
+<style src="./codeeditor.css" />
