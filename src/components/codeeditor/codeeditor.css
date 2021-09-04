@@ -1,18 +1,19 @@
-@import "../../../node_modules/codemirror/lib/codemirror.css";
-@import "../../../node_modules/codemirror/addon/hint/show-hint.css";
-@import "../../../node_modules/codemirror/addon/display/fullscreen.css";
-@import "../../../node_modules/codemirror/theme/material.css";
-@import "../../../node_modules/codemirror/theme/neo.css";
+@import '../../../node_modules/codemirror/lib/codemirror.css';
+@import '../../../node_modules/codemirror/addon/hint/show-hint.css';
+@import '../../../node_modules/codemirror/addon/display/fullscreen.css';
+@import '../../../node_modules/codemirror/theme/material.css';
+@import '../../../node_modules/codemirror/theme/neo.css';
+@import 'customtheme/cmaterial.css';
 
 .text-right {
   text-align: right;
 }
 
 #codearea {
-  height: 700px;
-  background: var(--inputBackground);
-  border: 1px solid #eee;
-  border-radius: 4px;
+  height: 1000px;
+  /* background: #fff; */
+  /* border: 1px solid #eee; */
+  /* border-radius: 4px; */
   overflow: hidden;
   font-size: 16px;
 }
@@ -49,7 +50,7 @@
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 16px;
   width: 16px;
   left: 2px;

@@ -1,5 +1,5 @@
 <template>
-  <PageWithWidget class="match-content-height">
+  <DefaultPageLayout class="p-5">
     <template slot="main-page">
       <section class="sub-section about">
         <p>
@@ -103,17 +103,17 @@
         </p>
       </section>
     </template>
-  </PageWithWidget>
+  </DefaultPageLayout>
 </template>
 
 <script>
 
-import PageWithWidget from '@/components/Layout/PageWithWidget.vue';
+import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
 
 export default {
   name: 'ABoutPage',
   components: {
-    PageWithWidget,
+    DefaultPageLayout,
   },
 };
 </script>
@@ -122,6 +122,10 @@ export default {
 
 .sub-section{
   margin-top: 50px;
+}
+
+.sub-section:first-child{
+  margin-top: 0px;
 }
 
 .about p img{

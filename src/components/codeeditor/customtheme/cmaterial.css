@@ -1,0 +1,134 @@
+/*
+  Name:       cmaterial
+  Author:     Mattia Astorino (http://github.com/equinusocio)
+  Website:    https://cmaterial-theme.site/
+*/
+
+.cm-s-cmaterial.CodeMirror {
+  background-color: #272b30;
+  color: #eeffff;
+}
+
+.cm-s-cmaterial .CodeMirror-gutters {
+  background: #272b30;
+  color: #546e7a;
+  border: none;
+}
+
+.cm-s-cmaterial .CodeMirror-guttermarker,
+.cm-s-cmaterial .CodeMirror-guttermarker-subtle,
+.cm-s-cmaterial .CodeMirror-linenumber {
+  color: #546e7a;
+}
+
+.cm-s-cmaterial .CodeMirror-cursor {
+  border-left: 1px solid #ffcc00;
+}
+
+.cm-s-cmaterial div.CodeMirror-selected {
+  background: rgba(128, 203, 196, 0.2);
+}
+
+.cm-s-cmaterial.CodeMirror-focused div.CodeMirror-selected {
+  background: rgba(128, 203, 196, 0.2);
+}
+
+.cm-s-cmaterial .CodeMirror-line::selection,
+.cm-s-cmaterial .CodeMirror-line > span::selection,
+.cm-s-cmaterial .CodeMirror-line > span > span::selection {
+  background: rgba(128, 203, 196, 0.2);
+}
+
+.cm-s-cmaterial .CodeMirror-line::-moz-selection,
+.cm-s-cmaterial .CodeMirror-line > span::-moz-selection,
+.cm-s-cmaterial .CodeMirror-line > span > span::-moz-selection {
+  background: rgba(128, 203, 196, 0.2);
+}
+
+.cm-s-cmaterial .CodeMirror-activeline-background {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.cm-s-cmaterial .cm-keyword {
+  color: #c792ea;
+}
+
+.cm-s-cmaterial .cm-operator {
+  color: #89ddff;
+}
+
+.cm-s-cmaterial .cm-variable-2 {
+  color: #eeffff;
+}
+
+.cm-s-cmaterial .cm-variable-3,
+.cm-s-cmaterial .cm-type {
+  color: #f07178;
+}
+
+.cm-s-cmaterial .cm-builtin {
+  color: #ffcb6b;
+}
+
+.cm-s-cmaterial .cm-atom {
+  color: #f78c6c;
+}
+
+.cm-s-cmaterial .cm-number {
+  color: #ff5370;
+}
+
+.cm-s-cmaterial .cm-def {
+  color: #82aaff;
+}
+
+.cm-s-cmaterial .cm-string {
+  color: #c3e88d;
+}
+
+.cm-s-cmaterial .cm-string-2 {
+  color: #f07178;
+}
+
+.cm-s-cmaterial .cm-comment {
+  color: #546e7a;
+}
+
+.cm-s-cmaterial .cm-variable {
+  color: #f07178;
+}
+
+.cm-s-cmaterial .cm-tag {
+  color: #ff5370;
+}
+
+.cm-s-cmaterial .cm-meta {
+  color: #ffcb6b;
+}
+
+.cm-s-cmaterial .cm-attribute {
+  color: #c792ea;
+}
+
+.cm-s-cmaterial .cm-property {
+  color: #c792ea;
+}
+
+.cm-s-cmaterial .cm-qualifier {
+  color: #decb6b;
+}
+
+.cm-s-cmaterial .cm-variable-3,
+.cm-s-cmaterial .cm-type {
+  color: #decb6b;
+}
+
+.cm-s-cmaterial .cm-error {
+  color: rgba(255, 255, 255, 1);
+  background-color: #ff5370;
+}
+
+.cm-s-cmaterial .CodeMirror-matchingbracket {
+  text-decoration: underline;
+  color: white !important;
+}

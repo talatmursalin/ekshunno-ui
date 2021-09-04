@@ -1,6 +1,6 @@
 <template>
-  <PageWithWidget class="match-content-height mt-5 mb-5">
-    <template slot="above-widget">
+  <DefaultPageLayout>
+    <template slot="page-top">
       <ModalLoader :activate-loader="activateLoader" />
       <ModalWindow
         :modal-title="warningModalContent"
@@ -19,7 +19,7 @@
         {{ message }}
       </b-alert>
       <div class="mt-3">
-        <div class="row justify-content-between">
+        <!-- <div class="row justify-content-between">
           <div class="col-md-4">
             <NoborderInput>
               <b-input-group class="input-group input-group-no-border first">
@@ -90,9 +90,9 @@
               </b-input-group>
             </NoborderInput>
           </div>
-        </div>
-        <div class="row mt-10">
-          <div class="col-md-6">
+        </div> -->
+        <div class="row">
+          <div class="col-md-7">
             <CodeEditor
               :editor-lang-mode="langMode"
               :precode="langPrecode"
@@ -100,8 +100,8 @@
               @codeEdited="codeEdited"
             />
           </div>
-          <div class="col-md-6 mt-custom-3">
-            <NoborderInput>
+          <div class="col-md-5">
+            <!-- <NoborderInput>
               <b-input-group class="input-group-lg input-group-no-border first">
                 <template v-slot:prepend>
                   <b-input-group-text>
@@ -160,7 +160,7 @@
                   </b-input-group-text>
                 </template>
               </b-input-group>
-            </NoborderInput>
+            </NoborderInput> -->
             <div class="form-group">
               <label for="exampleFormControlTextarea3">Input</label>
               <textarea
@@ -184,7 +184,7 @@
         </div>
       </div>
     </template>
-  </PageWithWidget>
+  </DefaultPageLayout>
 </template>
 
 <script>
@@ -192,8 +192,8 @@ import io from 'socket.io-client';
 import CodeEditor from '@/components/codeeditor/CodeEditor.vue';
 import ModalLoader from '@/components/ModalLoader/ModalLoader.vue';
 import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
-import PageWithWidget from '@/components/Layout/PageWithWidget.vue';
-import NoborderInput from '@/components/NoborderInput/NoborderInput.vue';
+import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
+// import NoborderInput from '@/components/NoborderInput/NoborderInput.vue';
 import executeMixin from '@/mixins/execute';
 import request from '@/request';
 
@@ -201,10 +201,10 @@ export default {
   name: 'ExecutePage',
 
   components: {
-    PageWithWidget,
+    DefaultPageLayout,
     CodeEditor,
     ModalLoader,
-    NoborderInput,
+    // NoborderInput,
     ModalWindow,
   },
   mixins: [executeMixin],
@@ -323,10 +323,6 @@ export default {
 .input-group .red-color {
   color: red;
   font-weight: bold;
-}
-
-.mt-custom-3{
-  margin-top: 32px;
 }
 
 @media only screen and (max-width:700px) {

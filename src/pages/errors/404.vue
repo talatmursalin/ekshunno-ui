@@ -98,7 +98,6 @@ export default {
 .notfound p {
   /* font-family: cabin, sans-serif; */
   font-size: 16px;
-  color: #000;
   font-weight: 400;
 }
 .notfound a {

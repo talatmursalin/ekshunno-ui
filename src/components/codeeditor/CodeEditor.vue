@@ -1,25 +1,27 @@
 <template>
   <div>
-    <div class="form-group">
-      <label class="switch">
+    <!-- <label class="switch">
         <input
           id="togBtn"
           v-model="darkTheme"
           class="pull-right"
           type="checkbox"
           @change="changeTheme"
-        />
+        >
         <div class="slider round">
           <span class="on">Dark</span><span class="off">Light</span>
         </div>
-      </label>
-      <div id="codearea" />
-    </div>
-    <div class="btns">
-      <button class="btn btn-primary btn-lg btn-block" @click="submitSolution">
+      </label> -->
+    <div id="codearea" />
+
+    <!-- <div class="btns">
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        @click="submitSolution"
+      >
         RUN
       </button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -47,7 +49,8 @@ export default {
   props: {
     editorLangMode: {
       type: String,
-      required: true,
+      // required: true,
+      default: 'text/x-csrc',
     },
     precode: {
       type: String,
@@ -152,7 +155,7 @@ export default {
         this.$emit('codeEdited', this.src);
       });
       this.editor.setSize('100%', '100%');
-      this.setEditorTheme('neo');
+      this.setEditorTheme('cmaterial');
       this.setEditorMode();
       this.setEditorValue();
     },

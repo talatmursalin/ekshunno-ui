@@ -3,19 +3,53 @@
  * This file is loaded via separate loader thus allowing to use original bootstrap classes (e.g. .btn-default) through out the app.
  */
 
-// @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,800');
+// Your variable overrides go here, e.g.:
+// $h1-font-size: 3rem;
+// $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" !default;
+// url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap');
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap");
-@import "../../../node_modules/bootstrap/scss/functions";
-@import "variables";
-@import "../../../node_modules/bootstrap/scss/bootstrap";
-@import "../../../node_modules/bootstrap-vue/dist/bootstrap-vue.css";
-@import "mixins";
-@import "base";
-@import "overrides";
-@import "general";
-@import "utils";
+:root {
+  --mx-page-width: 1800px;
+}
+
+@import 'variables';
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+@import 'bootswatch';
 
 body {
-  font-family: "Roboto Mono", monospace;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.background-cover {
+  background-size: cover;
+  background-position: center;
+}
+
+.router-animation-enter-active {
+  animation: coming 0.2s;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+.router-animation-leave-active {
+  animation: going 0.2s;
+}
+
+@keyframes going {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(0, 4%, 0) scale(0.93);
+    opacity: 0;
+  }
+}
+@keyframes coming {
+  from {
+    transform: translate3d(0, 4%, 0) scale(0.93);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
 }

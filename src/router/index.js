@@ -2,8 +2,8 @@
 /* eslint-disable indent */
 import Vue from 'vue';
 import Router from 'vue-router';
-import DefaultLayout from '@/components/Layout/DefaultLayout.vue';
-import ExecutePage from '@/pages/execute/ExecutePage.vue';
+import AppLayout from '@/components/Layout/AppLayout.vue';
+import ExecutePage from '@/pages/execute/NewExecutePage.vue';
 import Error404 from '@/pages/errors/404.vue';
 import AboutPage from '@/pages/about/AboutPage.vue';
 import TestPage from '@/pages/test/TestPage.vue';
@@ -14,7 +14,7 @@ export default new Router({
     mode: 'history',
     routes: [{
         path: '/',
-        component: DefaultLayout,
+        component: AppLayout,
         children: [{
             path: '/',
             name: 'Execute',
