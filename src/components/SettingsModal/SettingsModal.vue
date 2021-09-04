@@ -1,6 +1,6 @@
 <template>
   <div class="setting-modal">
-    <div class="sett-header p-2">
+    <div class="sett-header">
       <h4>settings</h4>
       <div
         class="close-btn"
@@ -148,6 +148,10 @@ export default {
 
 .sett-header{
     display: flex;
+}
+
+.sett-header h4{
+    margin-bottom: 0px;
 }
 
 .sett-header .close-btn{

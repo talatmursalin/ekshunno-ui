@@ -33,23 +33,21 @@
         <div class="col-md-8 editor-block">
           <div class="editor-controlls">
             <div class="lang-select">
-              <select>
-                <option selected>
-                  Choose...
-                </option>
-                <option value="1">
-                  One
-                </option>
-                <option value="2">
-                  Two
-                </option>
-                <option value="3">
-                  Three
+              <select v-model="submission.lang">
+                <option
+                  v-for="(lang, i) in langOptions"
+                  :key="i"
+                  :value="lang.value"
+                >
+                  {{ lang.text }}
                 </option>
               </select>
             </div>
             <div class="play-sett-btns">
-              <span class="run-btn">
+              <span
+                class="run-btn"
+                @click="codeSubmitted"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="sett"
@@ -105,7 +103,13 @@
               </span>
             </div>
           </div>
-          <codeEditor />
+          <CodeEditor
+            :editor-lang-mode="langMode"
+            :precode="langPrecode"
+            :e-theme="settings.selEditorTheme"
+            @codeSubmitted="codeSubmitted"
+            @codeEdited="codeEdited"
+          />
         </div>
         <div class="col-md-4 io-block">
           <div class="input-block">
@@ -175,8 +179,8 @@ export default {
         selEditorTheme: 'cmaterial',
       },
       submission: {
-        memory: 512,
-        time: 0,
+        memory: 256,
+        time: 3.0,
         input: '',
       },
       result: {
@@ -214,22 +218,26 @@ export default {
         this.showMessage('Source is empty!', 'danger');
         return false;
       }
-      if (this.submission.time < 0 || this.submission.time > 10) {
-        this.showMessage('Time limit must be between 0 to 10', 'danger');
+      if (this.submission.time < 0 || this.submission.time > this.settings.mxTime) {
+        this.showMessage('Invalid execution time provided', 'danger');
+        return false;
+      }
+      if (this.submission.memory < 0 || this.submission.memory > this.settings.mxMemory) {
+        this.showMessage('Invalid memory provided', 'danger');
         return false;
       }
       return true;
     },
-    codeSubmitted(src) {
+    codeSubmitted() {
       this.message = null;
-      this.submission.src = src;
-      this.submission.time = parseFloat(this.submission.time);
+      this.submission.time = this.settings.selTime;
+      this.submission.memory = this.settings.selMemory;
       if (this.validateSubmission() === false) {
         return;
       }
       const cloneSubmission = {
         ...this.submission,
-        src: btoa(src),
+        src: btoa(this.submission.src),
       };
       this.activateLoader = true;
       this.saveEditorState();
@@ -272,114 +280,4 @@ export default {
 };
 </script>
 
-<style lang='css'>
-
-.editor{
-    margin-top: 40px;
-    border: 1px solid var(--primary);
-}
-
-.editor-header{
-    height: 40px;
-    width: 100%;
-    border-bottom: 1px solid var(--primary)
-}
-
-.editor-block{
-    height: 100%;
-}
-
-.io-block{
-    border-left: 1px solid var(--primary);
-}
-
-.io-block textarea{
-    width: 100%;
-    height: 100%;
-    background:inherit;
-    border: none;
-    padding: 10px;
-}
-
-.input-block-header, .output-block-header{
-    padding-left: 5px;
-    border: 1px solid var(--primary);
-}
-
-.editor-controlls{
-    display:flex;
-    height: 45px;
-    position: relative;
-    padding: 0px 10px;
-    border-bottom: 1px solid var(--primary);
-    margin-bottom: 10px;
-}
-
-.play-sett-btns{
-    margin-left: auto;
-    background: red;
-    position: relative;
-}
-
-.run-btn, .sett-btn{
-    margin: 0 10px;
-    position: absolute;
-    top: 50%;
-     -ms-transform: translateY(-45%);
-    transform: translateY(-40%);
-    cursor: pointer;
-}
-
-.run-btn{
-    margin-left: -100px;
-    color: var(--green);
-}
-
-.sett-btn{
-    margin-left: -50px;
-}
-
-.sett{
-    width: 23px;
-    height: auto;
-    /* padding: 4px 0px; problemo */
-}
-
-.lang-select select{
-    width: 200px;
-    background: transparent;
-    border: 1px solid var(--primary);
-    border-radius: 4px;
-    color: darkgray;
-    position: absolute;
-    top: 47%;
-    -ms-transform: translateY(-47%);
-    transform: translateY(-47%);
-    padding: 3px;
-}
-
-.input-group .verdict-text {
-  font-weight: bold;
-}
-
-.input-group .green-color {
-  color: green;
-  font-weight: bold;
-}
-
-.input-group .red-color {
-  color: red;
-  font-weight: bold;
-}
-
-@media only screen and (max-width:700px) {
-  .noborderinput .input-group-lg .input-group-prepend {
-    display: none;
-  }
-
-  .noborderinput .input-group-lg .input-group-append{
-   display: none;
-  }
-}
-
-</style>
+<style src="./executePageStyle.css" />

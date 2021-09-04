@@ -91,7 +91,7 @@ export default {
                     languageData.forEach((lang) => {
                         this.langOptions.push({
                             value: lang.id,
-                            text: lang.name,
+                            text: `${lang.name} ${lang.compilers[0].name}`,
                             mode: lang.mode,
                             precode: atob(lang.precode),
                         });
@@ -135,6 +135,7 @@ export default {
         },
         setInitialCode(src) {
             this.initialCode = btoa(src);
+            this.submission.src = this.initialCode;
         },
     },
 };

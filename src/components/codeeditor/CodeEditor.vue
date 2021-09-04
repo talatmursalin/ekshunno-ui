@@ -1,28 +1,5 @@
 <template>
-  <div>
-    <!-- <label class="switch">
-        <input
-          id="togBtn"
-          v-model="darkTheme"
-          class="pull-right"
-          type="checkbox"
-          @change="changeTheme"
-        >
-        <div class="slider round">
-          <span class="on">Dark</span><span class="off">Light</span>
-        </div>
-      </label> -->
-    <div id="codearea" />
-
-    <!-- <div class="btns">
-      <button
-        class="btn btn-primary btn-lg btn-block"
-        @click="submitSolution"
-      >
-        RUN
-      </button>
-    </div> -->
-  </div>
+  <div id="codearea" />
 </template>
 
 <script>
@@ -57,11 +34,14 @@ export default {
       default: '',
       immediate: true,
     },
+    eTheme: {
+      type: String,
+      default: 'cmaterial',
+    },
   },
   data() {
     return {
       src: '',
-      darkTheme: false,
       editor: null,
       snippets: [
         { text: 'const', displayText: 'const declarations' },
@@ -78,6 +58,9 @@ export default {
     precode() {
       this.setEditorValue();
     },
+    eTheme() {
+      this.changeTheme();
+    },
   },
   mounted() {
     setTimeout(() => {
@@ -86,18 +69,14 @@ export default {
   },
   methods: {
     submitSolution() {
-      this.$emit('codeSubmitted', this.src);
+      this.$emit('codeSubmitted');
     },
     submitShortcut() {
       this.exitFullScreen();
       this.submitSolution();
     },
     changeTheme() {
-      let themeName = 'neo';
-      if (this.darkTheme === true) {
-        themeName = 'material';
-      }
-      this.setEditorTheme(themeName);
+      this.setEditorTheme(this.eTheme);
     },
     setEditorTheme(themeName) {
       this.editor.setOption('theme', themeName);
@@ -133,6 +112,8 @@ export default {
         indentWithTabs: true,
         lineWrapping: true,
         indentUnit: 4,
+        theme: this.eTheme,
+        mode: this.editorLangMode,
       });
       this.editor.setOption('extraKeys', {
         'Cmd-E': this.hintSnippets,
@@ -155,8 +136,6 @@ export default {
         this.$emit('codeEdited', this.src);
       });
       this.editor.setSize('100%', '100%');
-      this.setEditorTheme('cmaterial');
-      this.setEditorMode();
       this.setEditorValue();
     },
   },
