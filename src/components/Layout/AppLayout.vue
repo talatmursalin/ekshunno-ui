@@ -25,11 +25,6 @@ export default {
 .encloser {
   min-height: 100vh;
   position: relative;
-  padding-bottom: 60px;
-}
-
-.page-container {
-  max-width: 1900px;
-  margin: 0 auto;
+  padding-bottom: 160px;
 }
 </style>

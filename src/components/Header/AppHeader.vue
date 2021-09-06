@@ -1,5 +1,5 @@
 <template>
-  <nav class="custom-container navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="custom-container navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <router-link
         class="navbar-brand"
@@ -14,8 +14,8 @@
       <button
         class="navbar-toggler"
         type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarColor02"
+        data-toggle="collapse"
+        data-target="#navbarColor02"
         aria-controls="navbarColor02"
         aria-expanded="false"
         aria-label="Toggle navigation"
@@ -108,6 +108,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'AppHeader',
 };
@@ -127,6 +128,11 @@ export default {
 .navbar {
     border: none;
 }
+
+.navbar-brand{
+    border: none;
+}
+
 .custom-container .container-fluid{
     max-width: var(--mx-page-width);
 }

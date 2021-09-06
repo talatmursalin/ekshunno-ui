@@ -133,4 +133,13 @@ export default {
     margin: 20em auto;
   }
 }
+
+@media only screen and (max-width: 700px) {
+  .mm-popup-container{
+    max-width: 300px;
+    overflow: auto;
+    height: 400px;
+  }
+}
+
 </style>

@@ -1,7 +1,7 @@
 <template>
   <DefaultPageLayout class="p-5">
     <template slot="main-page">
-      <section class="sub-section about">
+      <section class="about">
         <p>
           <a href="/"><img
             src="../../assets/logo.png"

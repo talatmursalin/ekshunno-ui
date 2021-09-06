@@ -9,25 +9,43 @@
   border-bottom: 1px solid var(--primary);
 }
 
-.editor-block {
-  height: 100%;
-}
-
 .io-block {
   border-left: 1px solid var(--primary);
 }
 
-.io-block textarea {
-  width: 100%;
-  height: 100%;
-  background: inherit;
-  border: none;
-  padding: 10px;
-}
-
 .input-block-header,
 .output-block-header {
-  padding-left: 5px;
+  background: var(--primary);
+  padding: 2px 5px;
+}
+
+.input-block-body {
+  display: block;
+  height: 525px;
+}
+
+.output-block-body {
+  display: block;
+  height: 514px;
+}
+
+.output-block-body textarea,
+.input-block-body textarea {
+  border: none;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  box-sizing: border-box;
+  resize: none;
+  background: transparent;
+  color: gainsboro;
+}
+
+.output-block-body textarea:focus,
+.input-block-body textarea:focus {
+  outline: none !important;
   border: 1px solid var(--primary);
 }
 
@@ -41,33 +59,29 @@
 
 .play-sett-btns {
   margin-left: auto;
-  background: red;
-  position: relative;
+  /* background: red; */
+  /* position: relative; */
+  display: flex;
+  align-items: center;
 }
 
-.run-btn,
-.sett-btn {
-  margin: 0 10px;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-45%);
-  transform: translateY(-40%);
+.icon-btn {
+  /* position: absolute; */
+  /* margin-top: 50%; */
+  /* background: blue; */
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.sett-icon {
+  width: 23px;
+  height: 23px;
 }
 
 .run-btn {
-  margin-left: -100px;
-  color: var(--green);
-}
-
-.sett-btn {
-  margin-left: -50px;
-}
-
-.sett {
-  width: 23px;
-  height: auto;
-  /* padding: 4px 0px; problemo */
+  color: var(--success);
 }
 
 .lang-select select {
@@ -104,5 +118,12 @@
 
   .noborderinput .input-group-lg .input-group-append {
     display: none;
+  }
+  .lang-select select {
+    width: 120px;
+  }
+  .editor {
+    margin-top: 10px;
+    border: none;
   }
 }

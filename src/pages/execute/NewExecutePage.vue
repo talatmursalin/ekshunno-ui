@@ -13,22 +13,21 @@
         <template #modal-content>
           <SettingsModal
             :settings="settings"
+            @themeSelChange="eThemeChanged"
             @closeSettModal="modalMakerClosed"
           />
         </template>
       </ModalMaker>
     </template>
     <template #main-page>
-      <b-alert
-        class="alert-sm"
+      <Alert
+        class="mt-4"
+        :show="showLocalMsg"
         :variant="msgVariant"
-        :show="!!message"
-        fade
-        dismissible
+        @alertClosed="hideLocalMessage"
       >
         {{ message }}
-      </b-alert>
-
+      </Alert>
       <div class="row no-gutters editor">
         <div class="col-md-8 editor-block">
           <div class="editor-controlls">
@@ -45,12 +44,12 @@
             </div>
             <div class="play-sett-btns">
               <span
-                class="run-btn"
+                class="icon-btn run-btn"
                 @click="codeSubmitted"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="sett"
+                  class="sett-icon"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -71,12 +70,30 @@
                 </svg>
               </span>
               <span
-                class="sett-btn"
+                class="icon-btn"
+                @click="uploadFile"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="sett-icon"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1
+                   0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg></span>
+              <span
+                class="icon-btn"
                 @click="showSettingsModal"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="sett"
+                  class="sett-icon"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -116,20 +133,26 @@
             <div class="input-block-header">
               stdin
             </div>
-            <textarea
-              name="stdin"
-              rows="20"
-            />
+            <div class="input-block-body">
+              <textarea
+                id="inputTextArea"
+                v-model="submission.input"
+                name="inputTextArea"
+              />
+            </div>
           </div>
           <div class="output-block">
             <div class="output-block-header">
-              stdout
+              output
             </div>
-            <textarea
-              name="stdout"
-              rows="20"
-              readonly
-            />
+            <div class="output-block-body">
+              <textarea
+                id="outputTextArea"
+                v-model="result.output"
+                name="outputTextArea"
+                readonly
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -145,6 +168,7 @@ import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
 import ModalMaker from '@/components/ModalWindow/ModalMaker.vue';
 import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
 import SettingsModal from '@/components/SettingsModal/SettingsModal.vue';
+import Alert from '@/components/Alert/Alert.vue';
 import executeMixin from '@/mixins/execute';
 import request from '@/request';
 
@@ -158,6 +182,7 @@ export default {
     ModalWindow,
     ModalMaker,
     SettingsModal,
+    Alert,
   },
   mixins: [executeMixin],
 
@@ -165,6 +190,7 @@ export default {
     return {
       message: null,
       msgVariant: 'success',
+      showLocalMsg: false,
       activateLoader: false,
       showWaringModal: false,
       showSettModal: false,
@@ -194,12 +220,16 @@ export default {
   computed: {
     verdictColor() {
       if (this.result.verdict === 'OK' || this.result.verdict === 'AC') {
-        return 'green-color';
+        // return 'green-color';
+        return 'success';
       }
       if (this.result.verdict === 'NULL') {
-        return 'black-color';
+        return 'info';
       }
-      return 'red-color';
+      return 'danger';
+    },
+    hasResult() {
+      return this.result.verdict !== 'NULL';
     },
   },
   created() {
@@ -229,7 +259,7 @@ export default {
       return true;
     },
     codeSubmitted() {
-      this.message = null;
+      this.hideLocalMessage();
       this.submission.time = this.settings.selTime;
       this.submission.memory = this.settings.selMemory;
       if (this.validateSubmission() === false) {
@@ -261,20 +291,40 @@ export default {
       this.result.memory = (data.Memory).toFixed(2);
       this.result.output = data.Output;
       this.activateLoader = false;
+      this.showMessage(`${this.result.verdict} - execution took ${this.result.time}s
+       and ${this.result.memory} mb`, this.verdictColor);
     },
     showMessage(msg, type) {
+      this.hideLocalMessage();
       this.message = msg;
       this.msgVariant = type;
+      this.showLocalMsg = true;
+    },
+    hideLocalMessage() {
+      this.showLocalMsg = false;
+      this.message = null;
     },
     showSettingsModal() {
       this.showSettModal = true;
     },
+    eThemeChanged(themeName) {
+      this.settings.selEditorTheme = themeName;
+    },
     modalMakerClosed(sett) {
       this.settings.selTime = sett.time;
       this.settings.selMemory = sett.memory;
-      this.settings.selEditorTheme = sett.eTheme;
+      //   this.settings.selEditorTheme = sett.eTheme;
       //   save settings to local storage
       this.showSettModal = false;
+    },
+    uploadFile() {
+
+    },
+    changeTheme(theme) {
+      const htmlElement = document.body;
+
+      //   localStorage.setItem('theme', 'dark');
+      htmlElement.setAttribute('theme', theme);
     },
   },
 };

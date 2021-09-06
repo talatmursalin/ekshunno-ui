@@ -12,9 +12,11 @@
   --mx-page-width: 1800px;
 }
 
-@import 'variables';
-@import '../../../node_modules/bootstrap/scss/bootstrap';
-@import 'bootswatch';
+// @import 'slate/slate_theme';
+@import 'mint/mint_theme';
+// @import 'sketch/sketch_theme';
+// @import 'quartz/quartz_theme';
+// @import 'superhero/superhero_theme';
 
 body {
   font-family: 'Roboto Mono', monospace;

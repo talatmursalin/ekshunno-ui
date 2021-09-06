@@ -1,24 +1,28 @@
 <template>
   <div class="page-width">
     <slot name="page-top" />
-    <b-alert
-      class="alert-sm"
+    <Alert
       :variant="globalMessageType"
-      :show="!!globalMessage"
-      fade
-      dismissible
+      :show="showGlobalMessage"
     >
       {{ globalMessage }}
-    </b-alert>
+    </Alert>
     <slot name="main-page" />
   </div>
 </template>
 
 <script>
+
+import Alert from '@/components/Alert/Alert.vue';
+
 export default {
   name: 'DefaultPageLayout',
+  components: {
+    Alert,
+  },
   data() {
     return {
+      showGlobalMessage: false,
       globalMessage: null,
       globalMessageType: '',
     };
@@ -26,14 +30,17 @@ export default {
   created() {
     const msg = this.$store.getters.message;
     if (msg.msg !== null) {
+      this.showGlobalMessage = true;
       this.globalMessage = msg.msg;
       this.globalMessageType = msg.type;
-      this.clearGlobalMsg();
+      this.$store.commit('SET_MSG', { msg: null, type: '' });
+    } else {
+      this.showGlobalMessage = false;
     }
   },
   methods: {
-    clearGlobalMsg() {
-      this.$store.commit('SET_MSG', { msg: null, type: '' });
+    closeGlobalMsg() {
+      this.showGlobalMessage = false;
     },
   },
 };

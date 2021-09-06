@@ -8,7 +8,7 @@
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="sett"
+          class="sett-icon"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -66,7 +66,10 @@
         <p>Text editor color theme</p>
       </div>
       <div class="col-md-4">
-        <select v-model="eTheme">
+        <select
+          v-model="eTheme"
+          @change="themeSelChanged"
+        >
           <option
             v-for="(th, i) in settings.eThemes"
             :key="i"
@@ -139,6 +142,9 @@ export default {
         memory: this.memory,
         eTheme: this.eTheme,
       });
+    },
+    themeSelChanged(event) {
+      this.$emit('themeSelChange', event.target.value);
     },
   },
 };
