@@ -234,6 +234,7 @@ export default {
   },
   created() {
     this.connectSocket();
+    this.reloadSettings();
   },
   methods: {
     connectSocket() {
@@ -318,8 +319,20 @@ export default {
       this.showSettModal = false;
     },
     saveSettings(settings) {
-      localStorage.setItem('editorSettings', JSON.stringify(settings));
+      localStorage.setItem('editorSettings',
+        this.base64encode(JSON.stringify(settings)));
       console.log(settings);
+    },
+    reloadSettings() {
+      const settings = localStorage.getItem('editorSettings');
+      if (settings) {
+        console.log('setting', this.base64decode(settings));
+        const jsonSettings = JSON.parse(this.base64decode(settings));
+        console.log(jsonSettings);
+        this.settings.selTime = jsonSettings.time;
+        this.settings.selMemory = jsonSettings.memory;
+        this.settings.selEditorTheme = jsonSettings.eTheme;
+      }
     },
     uploadFile() {
 
