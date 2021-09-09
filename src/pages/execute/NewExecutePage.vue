@@ -313,18 +313,16 @@ export default {
     modalMakerClosed(sett) {
       this.settings.selTime = sett.time;
       this.settings.selMemory = sett.memory;
-      //   this.settings.selEditorTheme = sett.eTheme;
       //   save settings to local storage
+      this.saveSettings(sett);
       this.showSettModal = false;
+    },
+    saveSettings(settings) {
+      localStorage.setItem('editorSettings', JSON.stringify(settings));
+      console.log(settings);
     },
     uploadFile() {
 
-    },
-    changeTheme(theme) {
-      const htmlElement = document.body;
-
-      //   localStorage.setItem('theme', 'dark');
-      htmlElement.setAttribute('theme', theme);
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
-  <PageWithWidget class="match-content-height">
-    <template slot="main-page">
+  <DefaultPageLayout>
+    <template #main-page>
       <ModalWindow
         :show-modal-prop="showModal"
       />
@@ -32,18 +32,18 @@
         </div>
       </div>
     </template>
-  </PageWithWidget>
+  </DefaultPageLayout>
 </template>
 
 <script>
 
-import PageWithWidget from '@/components/Layout/PageWithWidget.vue';
+import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
 import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
 
 export default {
   name: 'TestPage',
   components: {
-    PageWithWidget,
+    DefaultPageLayout,
     ModalWindow,
   },
   data() {
