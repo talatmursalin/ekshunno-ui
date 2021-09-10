@@ -51,6 +51,18 @@
             >Pricing</a>
           </li> -->
           <li class="nav-item">
+            <!-- <span><i class="fas fa-palette" /></span> -->
+            <select class="nav-item-select">
+              <option
+                v-for="(name, i) in themeNames"
+                :key="i"
+                :value="name"
+              >
+                {{ name }}
+              </option>
+            </select>
+          </li>
+          <li class="nav-item">
             <router-link
               class="nav-link"
               :to="{ name: 'About' }"
@@ -111,6 +123,11 @@
 
 export default {
   name: 'AppHeader',
+  data() {
+    return {
+      themeNames: ['mint', 'slate', 'sketch'],
+    };
+  },
 };
 </script>
 
@@ -129,8 +146,29 @@ export default {
     border: none;
 }
 
+.navbar .nav-link{
+  border:none;
+}
+.navbar .nav-link:focus,
+.navbar .nav-link:hover{
+  border:none;
+}
+
+.navbar-nav .nav-item + .nav-item {
+    margin-left: 10px;
+}
+
 .navbar-brand{
     border: none;
+}
+
+.nav-item-select{
+  background: transparent;
+  border: none;
+  color: inherit;
+  height: 100%;
+  cursor: pointer;
+  /* border-right: 1px solid var(--secondary); */
 }
 
 .custom-container .container-fluid{

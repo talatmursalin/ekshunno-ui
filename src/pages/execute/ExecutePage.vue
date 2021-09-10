@@ -1,182 +1,92 @@
 <template>
   <DefaultPageLayout>
-    <template slot="page-top">
+    <template #page-top>
       <ModalLoader :activate-loader="activateLoader" />
-      <ModalWindow
-        :modal-title="warningModalContent"
-        :show-modal-prop="showWaringModal"
-        @modalClosed="warnModalClosed"
-      />
+      <ModalMaker
+        :show-modal-prop="showSettModal"
+      >
+        <template #modal-content>
+          <SettingsModal
+            :settings="settings"
+            @themeSelChange="eThemeChanged"
+            @closeSettModal="modalMakerClosed"
+          />
+        </template>
+      </ModalMaker>
     </template>
-    <template slot="main-page">
-      <b-alert
-        class="alert-sm"
+    <template #main-page>
+      <Alert
+        class="mt-4"
+        :show="showLocalMsg"
         :variant="msgVariant"
-        :show="!!message"
-        fade
-        dismissible
+        @alertClosed="hideLocalMessage"
       >
         {{ message }}
-      </b-alert>
-      <div class="mt-3">
-        <!-- <div class="row justify-content-between">
-          <div class="col-md-4">
-            <NoborderInput>
-              <b-input-group class="input-group input-group-no-border first">
-                <template v-slot:prepend>
-                  <b-input-group-text>
-                    <span>Language</span>
-                  </b-input-group-text>
-                </template>
-                <b-form-select
-                  v-model="submission.lang"
-                  :options="langOptions"
-                />
-                <template v-slot:append>
-                  <b-input-group-text>
-                    <span />
-                  </b-input-group-text>
-                </template>
-              </b-input-group>
-              <b-input-group class="input-group input-group-no-border last">
-                <template v-slot:prepend>
-                  <b-input-group-text>
-                    <span>Compiler</span>
-                  </b-input-group-text>
-                </template>
-                <b-form-select
-                  v-model="submission.compiler"
-                  :options="compOptions"
-                />
-              </b-input-group>
-            </NoborderInput>
+      </Alert>
+      <div class="row no-gutters editor">
+        <div class="col-md-8 editor-block">
+          <div class="editor-controlls">
+            <div class="lang-select">
+              <select v-model="submission.lang">
+                <option
+                  v-for="(lang, i) in langOptions"
+                  :key="i"
+                  :value="lang.value"
+                >
+                  {{ lang.text }}
+                </option>
+              </select>
+            </div>
+            <div class="play-sett-btns">
+              <span
+                class="icon-btn run-btn"
+                @click="codeSubmitted"
+              ><i class="fa fa-play" />
+              </span>
+              <span
+                class="icon-btn"
+                @click="uploadFile"
+              ><i class="fas fa-file-upload" />
+              </span>
+              <span
+                class="icon-btn"
+                @click="showSettingsModal"
+              >
+                <i class="fas fa-sliders-h" />
+              <!-- <i class="fas fa-cog" /> -->
+              </span>
+            </div>
           </div>
-          <div class="col-md-4">
-            <NoborderInput>
-              <b-input-group class="input-group input-group-no-border first">
-                <template v-slot:prepend>
-                  <b-input-group-text>
-                    <i
-                      class="fa fa-stopwatch"
-                      aria-hidden="true"
-                    />
-                  </b-input-group-text>
-                </template>
-                <b-form-input
-                  v-model="submission.time"
-                  placeholder="Time Limit"
-                />
-                <template v-slot:append>
-                  <b-input-group-text>
-                    <span>sec</span>
-                  </b-input-group-text>
-                </template>
-              </b-input-group>
-              <b-input-group class="input-group input-group-no-border last">
-                <template v-slot:prepend>
-                  <b-input-group-text>
-                    <i class="fa fa-memory" />
-                  </b-input-group-text>
-                </template>
-                <b-form-select
-                  v-model="submission.memory"
-                  :options="memOptions"
-                />
-                <template v-slot:append>
-                  <b-input-group-text>
-                    <span>mb</span>
-                  </b-input-group-text>
-                </template>
-              </b-input-group>
-            </NoborderInput>
-          </div>
-        </div> -->
-        <div class="row">
-          <div class="col-md-7">
-            <CodeEditor
-              :editor-lang-mode="langMode"
-              :precode="langPrecode"
-              @codeSubmitted="codeSubmitted"
-              @codeEdited="codeEdited"
-            />
-          </div>
-          <div class="col-md-5">
-            <!-- <NoborderInput>
-              <b-input-group class="input-group-lg input-group-no-border first">
-                <template v-slot:prepend>
-                  <b-input-group-text>
-                    <i
-                      class="fas fa-terminal"
-                      aria-hidden="true"
-                    />
-                  </b-input-group-text>
-                </template>
-                <b-form-input
-                  placeholder="NULL"
-                  class="verdict-text"
-                  :class="verdictColor"
-                  :value="result.verdict"
-                  disabled
-                />
-                <template v-slot:append>
-                  <b-input-group-text>
-                    <span />
-                  </b-input-group-text>
-                </template>
-              </b-input-group>
-              <b-input-group class="input-group-lg input-group-no-border middle">
-                <template v-slot:prepend>
-                  <b-input-group-text>
-                    <i
-                      class="fa fa-stopwatch"
-                      aria-hidden="true"
-                    />
-                  </b-input-group-text>
-                </template>
-                <b-form-input
-                  placeholder="Time Limit"
-                  :value="result.time"
-                  disabled
-                />
-                <template v-slot:append>
-                  <b-input-group-text>
-                    <span>sec</span>
-                  </b-input-group-text>
-                </template>
-              </b-input-group>
-              <b-input-group class="input-group-lg input-group-no-border last">
-                <template v-slot:prepend>
-                  <b-input-group-text>
-                    <i class="fa fa-memory" />
-                  </b-input-group-text>
-                </template>
-                <b-form-input
-                  :value="result.memory"
-                  disabled
-                />
-                <template v-slot:append>
-                  <b-input-group-text>
-                    <span>mb</span>
-                  </b-input-group-text>
-                </template>
-              </b-input-group>
-            </NoborderInput> -->
-            <div class="form-group">
-              <label for="exampleFormControlTextarea3">Input</label>
+          <CodeEditor
+            :editor-lang-mode="langMode"
+            :precode="langPrecode"
+            :e-theme="settings.selEditorTheme"
+            @codeSubmitted="codeSubmitted"
+            @codeEdited="codeEdited"
+          />
+        </div>
+        <div class="col-md-4 io-block">
+          <div class="input-block">
+            <div class="input-block-header">
+              stdin
+            </div>
+            <div class="input-block-body">
               <textarea
-                id="exampleFormControlTextarea3"
+                id="inputTextArea"
                 v-model="submission.input"
-                class="form-control no-border"
-                rows="12"
+                name="inputTextArea"
               />
             </div>
-            <div class="form-group">
-              <label for="exampleFormControlTextarea3">Output</label>
+          </div>
+          <div class="output-block">
+            <div class="output-block-header">
+              output
+            </div>
+            <div class="output-block-body">
               <textarea
-                id="exampleFormControlTextarea3"
+                id="outputTextArea"
                 v-model="result.output"
-                class="form-control no-border"
-                rows="13"
+                name="outputTextArea"
                 readonly
               />
             </div>
@@ -191,9 +101,11 @@
 import io from 'socket.io-client';
 import CodeEditor from '@/components/codeeditor/CodeEditor.vue';
 import ModalLoader from '@/components/ModalLoader/ModalLoader.vue';
-import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
+// import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
+import ModalMaker from '@/components/ModalWindow/ModalMaker.vue';
 import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
-// import NoborderInput from '@/components/NoborderInput/NoborderInput.vue';
+import SettingsModal from '@/components/SettingsModal/SettingsModal.vue';
+import Alert from '@/components/Alert/Alert.vue';
 import executeMixin from '@/mixins/execute';
 import request from '@/request';
 
@@ -204,8 +116,9 @@ export default {
     DefaultPageLayout,
     CodeEditor,
     ModalLoader,
-    // NoborderInput,
-    ModalWindow,
+    ModalMaker,
+    SettingsModal,
+    Alert,
   },
   mixins: [executeMixin],
 
@@ -213,17 +126,21 @@ export default {
     return {
       message: null,
       msgVariant: 'success',
+      showLocalMsg: false,
       activateLoader: false,
-      showWaringModal: false,
-      warningModalContent: '',
+      showSettModal: false,
       socket: null,
-      memOptions: [
-        { text: '512', value: 512 },
-        { text: '256', value: 256 },
-      ],
+      settings: {
+        mxTime: 3.0,
+        selTime: 3.0,
+        mxMemory: 512,
+        selMemory: 256,
+        eThemes: ['cmaterial', 'neo', 'material'],
+        selEditorTheme: 'cmaterial',
+      },
       submission: {
-        memory: 512,
-        time: 0,
+        memory: 256,
+        time: 3.0,
         input: '',
       },
       result: {
@@ -237,16 +154,24 @@ export default {
   computed: {
     verdictColor() {
       if (this.result.verdict === 'OK' || this.result.verdict === 'AC') {
-        return 'green-color';
+        // return 'green-color';
+        return 'success';
       }
       if (this.result.verdict === 'NULL') {
-        return 'black-color';
+        return 'info';
       }
-      return 'red-color';
+      return 'danger';
+    },
+    hasResult() {
+      return this.result.verdict !== 'NULL';
     },
   },
   created() {
     this.connectSocket();
+    this.reloadSettings();
+  },
+  mounted() {
+    // this.activateLoader = true;
   },
   methods: {
     connectSocket() {
@@ -261,22 +186,30 @@ export default {
         this.showMessage('Source is empty!', 'danger');
         return false;
       }
-      if (this.submission.time < 0 || this.submission.time > 10) {
-        this.showMessage('Time limit must be between 0 to 10', 'danger');
+      if (Buffer.byteLength(this.submission.src, 'utf8') > 500 * 1024) {
+        this.showMessage('Source too long!', 'danger');
+        return false;
+      }
+      if (this.submission.time < 0 || this.submission.time > this.settings.mxTime) {
+        this.showMessage('Invalid execution time provided', 'danger');
+        return false;
+      }
+      if (this.submission.memory < 0 || this.submission.memory > this.settings.mxMemory) {
+        this.showMessage('Invalid memory provided', 'danger');
         return false;
       }
       return true;
     },
-    codeSubmitted(src) {
-      this.message = null;
-      this.submission.src = src;
-      this.submission.time = parseFloat(this.submission.time);
+    codeSubmitted() {
+      this.hideLocalMessage();
+      this.submission.time = this.settings.selTime;
+      this.submission.memory = this.settings.selMemory;
       if (this.validateSubmission() === false) {
         return;
       }
       const cloneSubmission = {
         ...this.submission,
-        src: btoa(src),
+        src: btoa(this.submission.src),
       };
       this.activateLoader = true;
       this.saveEditorState();
@@ -300,39 +233,50 @@ export default {
       this.result.memory = (data.Memory).toFixed(2);
       this.result.output = data.Output;
       this.activateLoader = false;
+      this.showMessage(`${this.result.verdict} - execution took ${this.result.time}s
+       and ${this.result.memory} mb`, this.verdictColor);
     },
     showMessage(msg, type) {
+      this.hideLocalMessage();
       this.message = msg;
       this.msgVariant = type;
+      this.showLocalMsg = true;
+    },
+    hideLocalMessage() {
+      this.showLocalMsg = false;
+      this.message = null;
+    },
+    showSettingsModal() {
+      this.showSettModal = true;
+    },
+    eThemeChanged(themeName) {
+      this.settings.selEditorTheme = themeName;
+    },
+    modalMakerClosed(sett) {
+      this.settings.selTime = sett.time;
+      this.settings.selMemory = sett.memory;
+      //   save settings to local storage
+      this.saveSettings(sett);
+      this.showSettModal = false;
+    },
+    saveSettings(settings) {
+      localStorage.setItem('editorSettings',
+        this.base64encode(JSON.stringify(settings)));
+    },
+    reloadSettings() {
+      const settings = localStorage.getItem('editorSettings');
+      if (settings) {
+        const jsonSettings = JSON.parse(this.base64decode(settings));
+        this.settings.selTime = jsonSettings.time;
+        this.settings.selMemory = jsonSettings.memory;
+        this.settings.selEditorTheme = jsonSettings.eTheme;
+      }
+    },
+    uploadFile() {
+
     },
   },
 };
 </script>
 
-<style lang='css'>
-
-.input-group .verdict-text {
-  font-weight: bold;
-}
-
-.input-group .green-color {
-  color: green;
-  font-weight: bold;
-}
-
-.input-group .red-color {
-  color: red;
-  font-weight: bold;
-}
-
-@media only screen and (max-width:700px) {
-  .noborderinput .input-group-lg .input-group-prepend {
-    display: none;
-  }
-
-  .noborderinput .input-group-lg .input-group-append{
-   display: none;
-  }
-}
-
-</style>
+<style src="./executePageStyle.css" />

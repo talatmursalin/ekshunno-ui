@@ -107,14 +107,6 @@ export default {
             });
             this.submission.compiler = this.compOptions[0].value;
         },
-        warnModalClosed(choice) {
-            this.showWaringModal = false;
-            if (choice) {
-                this.changeLanguageSelection();
-            } else {
-                this.submission.lang = this.prevLang;
-            }
-        },
         onLangChange() {
             // const code = btoa(this.submission.src);
             // if (code !== this.initialCode && code.trim().length !== 0) {

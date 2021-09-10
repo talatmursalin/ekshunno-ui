@@ -1,9 +1,6 @@
 <template>
   <DefaultPageLayout>
     <template #main-page>
-      <ModalWindow
-        :show-modal-prop="showModal"
-      />
       <div class="dir">
         <h2>{{ dirName }}</h2>
       </div>
@@ -38,13 +35,12 @@
 <script>
 
 import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
-import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
+// import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
 
 export default {
   name: 'TestPage',
   components: {
     DefaultPageLayout,
-    ModalWindow,
   },
   data() {
     return {
