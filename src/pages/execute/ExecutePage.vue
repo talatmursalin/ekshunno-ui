@@ -170,9 +170,6 @@ export default {
     this.connectSocket();
     this.reloadSettings();
   },
-  mounted() {
-    // this.activateLoader = true;
-  },
   methods: {
     connectSocket() {
       this.socket = io(request.defaults.socketEndPoint);
