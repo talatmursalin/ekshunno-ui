@@ -27,7 +27,7 @@
         <div class="col-md-8 editor-block">
           <div class="editor-controlls">
             <div class="lang-select">
-              <select v-model="submission.lang">
+              <!-- <select v-model="submission.lang">
                 <option
                   v-for="(lang, i) in langOptions"
                   :key="i"
@@ -35,7 +35,15 @@
                 >
                   {{ lang.text }}
                 </option>
-              </select>
+              </select> -->
+              <v-selectize
+                :value="submission.lang"
+                :options="langOptions"
+                :disable-search="true"
+                key-by="value"
+                label="text"
+                @input="langSelChanged"
+              />
             </div>
             <div class="play-sett-btns">
               <span
@@ -43,11 +51,11 @@
                 @click="codeSubmitted"
               ><i class="fa fa-play" />
               </span>
-              <span
+              <!-- <span
                 class="icon-btn"
                 @click="uploadFile"
               ><i class="fas fa-file-upload" />
-              </span>
+              </span> -->
               <span
                 class="icon-btn"
                 @click="showSettingsModal"
@@ -108,6 +116,7 @@ import SettingsModal from '@/components/SettingsModal/SettingsModal.vue';
 import Alert from '@/components/Alert/Alert.vue';
 import executeMixin from '@/mixins/execute';
 import request from '@/request';
+import VSelectize from '@isneezy/vue-selectize';
 
 export default {
   name: 'ExecutePage',
@@ -119,6 +128,7 @@ export default {
     ModalMaker,
     SettingsModal,
     Alert,
+    VSelectize,
   },
   mixins: [executeMixin],
 
@@ -269,6 +279,10 @@ export default {
         this.settings.selEditorTheme = jsonSettings.eTheme;
       }
     },
+    langSelChanged(lang) {
+      // console.log('langvalue', value);
+      this.submission.lang = lang.value;
+    },
     uploadFile() {
 
     },
@@ -276,4 +290,4 @@ export default {
 };
 </script>
 
-<style src="./executePageStyle.css" />
+<style lang="css" src="./executePageStyle.css" scoped/>

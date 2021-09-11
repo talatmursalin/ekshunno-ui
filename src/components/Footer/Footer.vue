@@ -30,4 +30,14 @@ export default {
 .red{
   color: red
 }
+
+.contentFooter a{
+  color: var(--info);
+}
+
+.contentFooter a:hover{
+  color: var(--info);
+  filter: brightness(80%);
+}
+
 </style>

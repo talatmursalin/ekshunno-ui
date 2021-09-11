@@ -1,3 +1,5 @@
+@import '~selectize/dist/css/selectize.css';
+
 .editor {
   margin-top: 40px;
   border: 1px solid var(--primary);
@@ -17,6 +19,7 @@
 .output-block-header {
   background: var(--primary);
   padding: 2px 5px;
+  color: var(--text-in-primary);
 }
 
 .input-block-body {
@@ -40,7 +43,7 @@
   box-sizing: border-box;
   resize: none;
   background: transparent;
-  color: gainsboro;
+  color: inherit;
 }
 
 .output-block-body textarea:focus,
@@ -84,18 +87,83 @@
   color: var(--success);
 }
 
-.lang-select select {
+/* custom select style */
+
+.lang-select {
   width: 200px;
-  background: transparent;
-  border: 1px solid var(--primary);
+  font-size: 14px;
+  /* background: red; */
+  /* border: 1px solid var(--primary);
   border-radius: 4px;
   color: darkgray;
   position: absolute;
   top: 47%;
   -ms-transform: translateY(-47%);
   transform: translateY(-47%);
-  padding: 3px;
+  padding: 3px; */
 }
+
+.lang-select >>> .selectize-input {
+  border: 1px solid var(--primary);
+  padding: 5px 5px;
+  background-color: var(--body-bg);
+  color: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  caret-color: transparent;
+  margin-top: 6px;
+  box-shadow: none;
+}
+
+.lang-select >>> .selectize-control.single .selectize-input.input-active {
+  background-color: transparent;
+}
+
+.lang-select >>> .selectize-input.dropdown-active::before {
+  background-color: transparent;
+}
+
+.lang-select >>> .selectize-control.single .selectize-input::after {
+  border-color: var(--body-color) transparent transparent transparent;
+}
+
+.lang-select
+  >>> .selectize-control.single
+  .selectize-input.dropdown-active::after {
+  margin-top: -4px;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--body-color) transparent;
+}
+
+.lang-select >>> .selectize-dropdown {
+  background-color: var(--body-bg);
+  margin: -6px 0 0 0;
+  border: 1px solid var(--primary);
+  border-top: 0 none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.lang-select >>> .selectize-control.single .selectize-input.input-active,
+.lang-select >>> .selectize-control.single .selectize-input.input-active input {
+  cursor: pointer;
+}
+
+.lang-select >>> .selectize-dropdown .option {
+  cursor: pointer;
+}
+
+.lang-select >>> .selectize-dropdown .option:hover {
+  background-color: var(--primary);
+  color: var(--text-in-primary);
+}
+
+.lang-select >>> .selectize-dropdown .active {
+  background-color: transparent;
+  color: inherit;
+}
+
+/*select style end */
 
 .input-group .verdict-text {
   font-weight: bold;

@@ -2,11 +2,11 @@
   <div class="setting-modal">
     <div class="sett-header">
       <h4>settings</h4>
-      <div
+      <span
         class="close-btn"
         @click="closeModal"
       >
-        <svg
+        <!-- <svg
           xmlns="http://www.w3.org/2000/svg"
           class="sett-icon"
           fill="none"
@@ -19,8 +19,9 @@
             stroke-width="2"
             d="M6 18L18 6M6 6l12 12"
           />
-        </svg>
-      </div>
+        </svg> -->
+        <i class="fas fa-times" />
+      </span>
     </div>
     <hr>
     <div class="row no-gutters p-2">
@@ -28,8 +29,8 @@
         <h5>time</h5>
         <p>Max execution time for the program</p>
       </div>
-      <div class="col-md-4">
-        <select v-model="time">
+      <div class="setting-select col-md-4">
+        <!-- <select v-model="time">
           <option
             v-for="(t, i) in timeOptions"
             :key="i"
@@ -38,7 +39,12 @@
           >
             {{ t }}s
           </option>
-        </select>
+        </select> -->
+        <v-selectize
+          v-model="time"
+          :options="timeOptions"
+          :disable-search="true"
+        />
       </div>
     </div>
     <div class="row no-gutters p-2">
@@ -46,8 +52,8 @@
         <h5>Memory</h5>
         <p>Max memory provided to the program including heap and stack</p>
       </div>
-      <div class="col-md-4">
-        <select v-model="memory">
+      <div class="setting-select col-md-4">
+        <!-- <select v-model="memory">
           <option
             v-for="(m, i) in memoryOptions"
             :key="i"
@@ -56,7 +62,12 @@
           >
             {{ m }} mb
           </option>
-        </select>
+        </select> -->
+        <v-selectize
+          v-model="memory"
+          :options="memoryOptions"
+          :disable-search="true"
+        />
       </div>
     </div>
     <hr>
@@ -65,8 +76,8 @@
         <h5>theme</h5>
         <p>Text editor color theme</p>
       </div>
-      <div class="col-md-4">
-        <select
+      <div class="setting-select col-md-4">
+        <!-- <select
           v-model="eTheme"
           @change="themeSelChanged"
         >
@@ -78,15 +89,27 @@
           >
             {{ th }}
           </option>
-        </select>
+        </select> -->
+        <v-selectize
+          v-model="eTheme"
+          :options="settings.eThemes"
+          :disable-search="true"
+          @input="themeSelChanged"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import VSelectize from '@isneezy/vue-selectize';
+
 export default {
   name: 'SettingsModal',
+  components: {
+    VSelectize,
+  },
   props: {
     settings: {
       type: Object,
@@ -143,56 +166,11 @@ export default {
         eTheme: this.eTheme,
       });
     },
-    themeSelChanged(event) {
-      this.$emit('themeSelChange', event.target.value);
+    themeSelChanged(themeName) {
+      this.$emit('themeSelChange', themeName);
     },
   },
 };
 </script>
 
-<style>
-
-.sett-header{
-    display: flex;
-}
-
-.sett-header h4{
-    margin-bottom: 0px;
-}
-
-.sett-header .close-btn{
-    margin-left: auto;
-    cursor: pointer;
-}
-
-.setting-modal{
-    padding: 20px;
-    background: var(--primary);
-    width: 100%;
-    /* height: 30px; */
-    border-radius: 4px;
-}
-
-.setting-modal h5{
-    text-align: left;
-}
-
-.setting-modal p{
-   color:dimgray;
-}
-
-.setting-modal .col-md-4{
-    text-align: right;
-}
-
-.setting-modal select{
-    background: transparent;
-    border: 1px solid var(--secondary);
-    border-radius: 4px;
-    padding: 5px;
-    color: var(--secondary);
-    width: 150px;
-    margin-top: 3px;
-}
-
-</style>
+<style src="./settingsModal.css" scoped/>

@@ -1,0 +1,22 @@
+[theme='mint'] {
+  --primary: #78c2ad;
+  --secondary: #fff;
+
+  --success: #{$green};
+  --info: #{$cyan};
+  --warning: #{$orange};
+  --danger: #{$red};
+
+  --light: #{$gray-100};
+  --dark: #{$gray-800};
+
+  --loader-mask-bg: rgba(0, 0, 0, 0.6);
+
+  --text-in-primary: #{$white};
+  --text-in-secondary: #{$gray-500};
+  --text-in-primary-dim: #{$gray-300};
+  --text-in-secondary-dim: #{$gray-600};
+
+  --body-bg: #{$gray-100};
+  --body-color: #{$gray-600};
+}

@@ -7,9 +7,9 @@
 // @import 'colors';
 // // add other themes if you want
 // @import '../styles/mint/mint_variables';
-@import 'theme_vars';
+// @import 'theme_vars';
 @import '../../../node_modules/bootstrap/scss/mixins';
-// @import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/variables';
 @import '../../../node_modules/bootstrap/scss/root';
 @import '../../../node_modules/bootstrap/scss/reboot';
 @import '../../../node_modules/bootstrap/scss/type';

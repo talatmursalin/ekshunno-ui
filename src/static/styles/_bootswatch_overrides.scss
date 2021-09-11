@@ -1,0 +1,21 @@
+[theme] {
+  .navbar {
+    border: none;
+  }
+
+  .navbar .nav-link {
+    border: none;
+  }
+  .navbar .nav-link:focus,
+  .navbar .nav-link:hover {
+    border: none;
+  }
+
+  .navbar-nav .nav-item + .nav-item {
+    margin-left: 10px;
+  }
+
+  .navbar-brand {
+    border: none;
+  }
+}

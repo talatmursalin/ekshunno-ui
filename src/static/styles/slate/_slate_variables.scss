@@ -30,8 +30,13 @@ $green: #62c462 !default;
 $teal: #20c997 !default;
 $cyan: #5bc0de !default;
 
-$primary: $gray-800 !default;
-$secondary: $gray-600 !default;
+[theme='slate'] {
+  --primary: #{$gray-800};
+  --secondary: #{$gray-600};
+}
+
+$primary: var(--primary) !default;
+$secondary: var(--secondary) !default;
 $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;

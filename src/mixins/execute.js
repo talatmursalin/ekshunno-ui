@@ -58,7 +58,7 @@ export default {
                 const code = this.base64decode(lang.precode);
                 this.langOptions.push({
                     value: lang.id,
-                    text: `${lang.name} (${lang.compilers[0].name})`,
+                    text: `${lang.name} (${lang.compilers[0].name})`.toLowerCase(),
                     mode: lang.mode,
                     precode: code,
                 });

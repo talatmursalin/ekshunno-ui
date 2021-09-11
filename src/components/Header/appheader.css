@@ -1,0 +1,118 @@
+@import '~selectize/dist/css/selectize.css';
+
+.logo {
+  height: 30px;
+  width: auto;
+}
+
+.reverse-flex-dir {
+  flex-direction: row-reverse;
+}
+
+.navbar {
+  border: none;
+  color: var(--text-in-primary);
+}
+
+.navbar .nav-link {
+  border: none;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: var(--text-in-primary);
+}
+
+.navbar .nav-link:focus,
+.navbar .nav-link:hover {
+  border: none;
+}
+
+.navbar-nav .nav-item + .nav-item {
+  margin-left: 10px;
+}
+
+.navbar-brand {
+  border: none;
+}
+
+/* .nav-item-select{
+  background: transparent;
+  border: 1px solid var(--secondary);
+  padding: 0 10px;
+  color: inherit;
+  height: 100%;
+  cursor: pointer;
+  width: 120px;
+  border-radius: 4px;
+  /* border-right: 1px solid var(--secondary);
+} */
+
+.nav-custom-select {
+  width: 150px;
+}
+
+.nav-custom-select >>> .selectize-input {
+  border: 1px solid var(--secondary);
+  padding: 5px 5px;
+  background-color: var(--primary);
+  color: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  caret-color: transparent;
+  margin-top: 5px;
+}
+
+.nav-custom-select >>> .selectize-control.single .selectize-input.input-active {
+  background-color: transparent;
+}
+
+.nav-custom-select >>> .selectize-input.dropdown-active::before {
+  background-color: transparent;
+}
+
+.nav-custom-select >>> .selectize-control.single .selectize-input::after {
+  border-color: var(--text-in-primary) transparent transparent transparent;
+}
+
+.nav-custom-select
+  >>> .selectize-control.single
+  .selectize-input.dropdown-active::after {
+  margin-top: -4px;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--text-in-primary) transparent;
+}
+
+.nav-custom-select >>> .selectize-dropdown {
+  background-color: var(--primary);
+  margin: -7px 0 0 0;
+  border: 1px solid var(--secondary);
+  border-top: 0 none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.nav-custom-select >>> .selectize-dropdown .option {
+  cursor: pointer;
+}
+
+.nav-custom-select >>> .selectize-control.single .selectize-input.input-active,
+.nav-custom-select
+  >>> .selectize-control.single
+  .selectize-input.input-active
+  input {
+  cursor: pointer;
+}
+
+.nav-custom-select >>> .selectize-dropdown .option:hover {
+  background-color: var(--secondary);
+  color: var(--text-in-secondary);
+}
+
+.nav-custom-select >>> .selectize-dropdown .active {
+  background-color: transparent;
+  color: inherit;
+}
+
+.custom-container .container-fluid {
+  max-width: var(--mx-page-width);
+}

@@ -50,9 +50,13 @@
               href="#"
             >Pricing</a>
           </li> -->
-          <li class="nav-item">
+          <li class="nav-item nav-custom-select">
             <!-- <span><i class="fas fa-palette" /></span> -->
-            <select class="nav-item-select">
+            <!-- <select
+              v-model="selected"
+              class="nav-item-select"
+              @change="themeChanged"
+            >
               <option
                 v-for="(name, i) in themeNames"
                 :key="i"
@@ -60,7 +64,13 @@
               >
                 {{ name }}
               </option>
-            </select>
+            </select> -->
+            <v-selectize
+              v-model="selected"
+              :options="themeNames"
+              :disable-search="true"
+              @input="themeChanged"
+            />
           </li>
           <li class="nav-item">
             <router-link
@@ -121,58 +131,37 @@
 
 <script>
 
+import VSelectize from '@isneezy/vue-selectize';
+
 export default {
   name: 'AppHeader',
+  components: {
+    VSelectize,
+  },
   data() {
     return {
-      themeNames: ['mint', 'slate', 'sketch'],
+      selected: 'slate',
+      themeNames: ['mint', 'slate', 'sketchy', 'flaty', 'dumty'],
     };
+  },
+  created() {
+    const theme = localStorage.getItem('sTheme');
+    this.selected = this.base64decode(theme);
+    this.themeChanged(this.selected);
+  },
+  methods: {
+    themeChanged(themeName) {
+      document.body.setAttribute('theme', themeName);
+      localStorage.setItem('sTheme', this.base64encode(themeName));
+    },
+    base64encode(str) {
+      return Buffer.from(str).toString('base64');
+    },
+    base64decode(str) {
+      return Buffer.from(str, 'base64').toString('utf-8');
+    },
   },
 };
 </script>
 
-<style scoped>
-
-.logo{
-    height: 30px;
-    width: auto;
-}
-
-.reverse-flex-dir{
-    flex-direction: row-reverse;
-}
-
-.navbar {
-    border: none;
-}
-
-.navbar .nav-link{
-  border:none;
-}
-.navbar .nav-link:focus,
-.navbar .nav-link:hover{
-  border:none;
-}
-
-.navbar-nav .nav-item + .nav-item {
-    margin-left: 10px;
-}
-
-.navbar-brand{
-    border: none;
-}
-
-.nav-item-select{
-  background: transparent;
-  border: none;
-  color: inherit;
-  height: 100%;
-  cursor: pointer;
-  /* border-right: 1px solid var(--secondary); */
-}
-
-.custom-container .container-fluid{
-    max-width: var(--mx-page-width);
-}
-
-</style>
+<style lang="css" src="./appheader.css" scoped></style>

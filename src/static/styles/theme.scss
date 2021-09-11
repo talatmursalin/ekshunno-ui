@@ -10,14 +10,13 @@
 
 :root {
   --mx-page-width: 1800px;
-  --loader-mask-bg: rgba(0, 0, 0, 0.4);
 }
 
-@import 'slate/slate_theme';
-// @import 'mint/mint_theme';
-// @import 'sketch/sketch_theme';
-// @import 'quartz/quartz_theme';
-// @import 'superhero/superhero_theme';
+@import 'colors';
+@import '~bootstrap/scss/bootstrap';
+@import '_overrides.scss';
+@import './slate/mySlate.scss';
+@import './mint/myMint.scss';
 
 body {
   font-family: 'Roboto Mono', monospace;
