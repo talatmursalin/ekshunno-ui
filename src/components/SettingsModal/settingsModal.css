@@ -29,16 +29,6 @@
   color: var(--text-in-primary-dim);
 }
 
-/* .setting-modal select {
-  background: transparent;
-  border: 1px solid var(--secondary);
-  border-radius: 4px;
-  padding: 5px;
-  color: var(--secondary);
-  width: 150px;
-  margin-top: 3px;
-} */
-
 /* select style */
 
 .setting-select >>> .selectize-input {
@@ -50,6 +40,9 @@
   cursor: pointer;
   caret-color: transparent;
   margin-top: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .setting-select >>> .selectize-control.single .selectize-input.input-active {
@@ -83,6 +76,9 @@
 
 .setting-select >>> .selectize-dropdown .option {
   cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .setting-select >>> .selectize-control.single .selectize-input.input-active,

@@ -6,20 +6,6 @@
         class="close-btn"
         @click="closeModal"
       >
-        <!-- <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="sett-icon"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg> -->
         <i class="fas fa-times" />
       </span>
     </div>
@@ -30,16 +16,6 @@
         <p>Max execution time for the program</p>
       </div>
       <div class="setting-select col-md-4">
-        <!-- <select v-model="time">
-          <option
-            v-for="(t, i) in timeOptions"
-            :key="i"
-            :value="t"
-            :selected="t==ctime"
-          >
-            {{ t }}s
-          </option>
-        </select> -->
         <v-selectize
           v-model="time"
           :options="timeOptions"
@@ -53,16 +29,6 @@
         <p>Max memory provided to the program including heap and stack</p>
       </div>
       <div class="setting-select col-md-4">
-        <!-- <select v-model="memory">
-          <option
-            v-for="(m, i) in memoryOptions"
-            :key="i"
-            :value="m"
-            :selected="m==cmemory"
-          >
-            {{ m }} mb
-          </option>
-        </select> -->
         <v-selectize
           v-model="memory"
           :options="memoryOptions"
@@ -77,23 +43,10 @@
         <p>Text editor color theme</p>
       </div>
       <div class="setting-select col-md-4">
-        <!-- <select
-          v-model="eTheme"
-          @change="themeSelChanged"
-        >
-          <option
-            v-for="(th, i) in settings.eThemes"
-            :key="i"
-            :value="th"
-            :selected="th==cetheme"
-          >
-            {{ th }}
-          </option>
-        </select> -->
         <v-selectize
           v-model="eTheme"
           :options="settings.eThemes"
-          :disable-search="true"
+          :disable-search="false"
           @input="themeSelChanged"
         />
       </div>

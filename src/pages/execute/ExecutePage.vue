@@ -27,15 +27,6 @@
         <div class="col-md-8 editor-block">
           <div class="editor-controlls">
             <div class="lang-select">
-              <!-- <select v-model="submission.lang">
-                <option
-                  v-for="(lang, i) in langOptions"
-                  :key="i"
-                  :value="lang.value"
-                >
-                  {{ lang.text }}
-                </option>
-              </select> -->
               <v-selectize
                 :value="submission.lang"
                 :options="langOptions"
@@ -109,7 +100,6 @@
 import io from 'socket.io-client';
 import CodeEditor from '@/components/codeeditor/CodeEditor.vue';
 import ModalLoader from '@/components/ModalLoader/ModalLoader.vue';
-// import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
 import ModalMaker from '@/components/ModalWindow/ModalMaker.vue';
 import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
 import SettingsModal from '@/components/SettingsModal/SettingsModal.vue';
@@ -117,6 +107,8 @@ import Alert from '@/components/Alert/Alert.vue';
 import executeMixin from '@/mixins/execute';
 import request from '@/request';
 import VSelectize from '@isneezy/vue-selectize';
+// eslint-disable-next-line import/extensions
+import { editorThemeList } from '@/utils/utils.js';
 
 export default {
   name: 'ExecutePage',
@@ -145,7 +137,7 @@ export default {
         selTime: 3.0,
         mxMemory: 512,
         selMemory: 256,
-        eThemes: ['cmaterial', 'neo', 'material'],
+        eThemes: editorThemeList, // ['cmaterial', 'neo', 'material'],
         selEditorTheme: 'cmaterial',
       },
       submission: {
@@ -179,6 +171,9 @@ export default {
   created() {
     this.connectSocket();
     this.reloadSettings();
+  },
+  mounted() {
+    console.log(editorThemeList);
   },
   methods: {
     connectSocket() {
@@ -280,7 +275,6 @@ export default {
       }
     },
     langSelChanged(lang) {
-      // console.log('langvalue', value);
       this.submission.lang = lang.value;
     },
     uploadFile() {

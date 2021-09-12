@@ -141,7 +141,7 @@ export default {
   data() {
     return {
       selected: 'slate',
-      themeNames: ['mint', 'slate', 'sketchy', 'flaty', 'dumty'],
+      themeNames: ['mint', 'slate', 'flaty', 'superhero', 'solar', 'faded'],
     };
   },
   created() {

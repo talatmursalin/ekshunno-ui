@@ -3,16 +3,24 @@
 </template>
 
 <script>
-// import jQuery from 'jquery/dist/jquery';
 
 /* eslint-disable import/extensions */
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/hint/show-hint.js';
+import 'codemirror/addon/hint/anyword-hint.js';
+
+import 'codemirror/addon/fold/foldgutter';
+import 'codemirror/addon/fold/foldcode.js';
 import 'codemirror/addon/fold/brace-fold.js';
+import 'codemirror/addon/fold/comment-fold.js';
+
 import 'codemirror/addon/edit/matchbrackets.js';
 import 'codemirror/addon/edit/closebrackets.js';
+
 import 'codemirror/addon/display/autorefresh.js';
 import 'codemirror/addon/display/fullscreen.js';
+
+import 'codemirror/addon/comment/comment';
 // import 'codemirror/addon/selection/active-line.js';
 // editotr modes
 import 'codemirror/mode/javascript/javascript.js';
@@ -114,6 +122,8 @@ export default {
         indentUnit: 4,
         theme: this.eTheme,
         mode: this.editorLangMode,
+        foldGutter: true,
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
       });
       this.editor.setOption('extraKeys', {
         'Cmd-E': this.hintSnippets,
@@ -122,6 +132,8 @@ export default {
         'Ctrl-Enter': this.toggleFullScreen,
         'Shift-Cmd-Enter': this.submitShortcut,
         'Shift-Ctrl-Enter': this.submitShortcut,
+        'Ctrl-/': 'toggleComment',
+        'Cmd-/': 'toggleComment',
         Esc: this.exitFullScreen,
       });
       // this.editor.setOption('fullscreen', true);

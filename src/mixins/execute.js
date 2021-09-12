@@ -3,9 +3,7 @@
 export default {
     data() {
         return {
-            resuming: false,
             savingCode: false,
-            initialCode: '',
             langOptions: [],
             languageConf: {},
             compOptions: [],
@@ -17,7 +15,6 @@ export default {
                 compiler: '',
                 src: '',
             },
-            prevLang: '',
         };
     },
     computed: {
@@ -27,10 +24,7 @@ export default {
     },
     watch: {
         newlySelLang() {
-            // if (!this.resuming && this.submission.lang !== this.prevLang) {
-            this.onLangChange();
-            // }
-            // this.resuming = false;
+            this.changeLanguageSelection();
         },
     },
     created() {
@@ -77,12 +71,8 @@ export default {
             }
         },
         resumeEditorState(state) {
-            // this.resuming = true;
-            // this.prevLang = state.selected;
             this.syncLangOptionCode(state);
             this.submission.lang = state.selected;
-            // this.setUpNewLangSelection(state[state.selected],
-            //     this.languageConf[state.selected].mode, state.selected);
         },
         syncLangOptionCode(state) {
             this.langOptions.forEach((op, i) => {
@@ -107,19 +97,8 @@ export default {
             });
             this.submission.compiler = this.compOptions[0].value;
         },
-        onLangChange() {
-            // const code = btoa(this.submission.src);
-            // if (code !== this.initialCode && code.trim().length !== 0) {
-            //     this.warningModalContent = 'Switching to a new language would
-            //  overwrite your current progress. Are you sure you want to proceed?';
-            //     this.showWaringModal = true;
-            // } else {
-            this.changeLanguageSelection();
-            // }
-        },
         changeLanguageSelection() {
             const langId = this.newlySelLang;
-            // this.prevLang = langId;
             const jsonState = this.getEditorState();
             this.syncLangOptionCode(jsonState);
             this.langOptions.forEach((lang) => {

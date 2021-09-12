@@ -24,7 +24,6 @@ export default {
     color: #6c757d;
     line-height: 60px;
     padding-left: 15px;
-    /* background:#6cf; */
 }
 
 .red{
