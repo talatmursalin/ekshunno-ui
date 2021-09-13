@@ -1,43 +1,26 @@
 <template>
-  <div>
-    <div class="form-group">
-      <label class="switch">
-        <input
-          id="togBtn"
-          v-model="darkTheme"
-          class="pull-right"
-          type="checkbox"
-          @change="changeTheme"
-        >
-        <div class="slider round">
-          <span class="on">Dark</span><span class="off">Light</span>
-        </div>
-      </label>
-      <div id="codearea" />
-    </div>
-    <div class="btns">
-      <button
-        class="btn btn-primary btn-lg btn-block"
-        @click="submitSolution"
-      >
-        submit
-      </button>
-    </div>
-  </div>
+  <div id="codearea" />
 </template>
 
 <script>
 
-// import jQuery from 'jquery/dist/jquery';
-
 /* eslint-disable import/extensions */
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/hint/show-hint.js';
+import 'codemirror/addon/hint/anyword-hint.js';
+
+import 'codemirror/addon/fold/foldgutter';
+import 'codemirror/addon/fold/foldcode.js';
 import 'codemirror/addon/fold/brace-fold.js';
+import 'codemirror/addon/fold/comment-fold.js';
+
 import 'codemirror/addon/edit/matchbrackets.js';
 import 'codemirror/addon/edit/closebrackets.js';
+
 import 'codemirror/addon/display/autorefresh.js';
 import 'codemirror/addon/display/fullscreen.js';
+
+import 'codemirror/addon/comment/comment';
 // import 'codemirror/addon/selection/active-line.js';
 // editotr modes
 import 'codemirror/mode/javascript/javascript.js';
@@ -51,18 +34,22 @@ export default {
   props: {
     editorLangMode: {
       type: String,
-      required: true,
+      // required: true,
+      default: 'text/x-csrc',
     },
     precode: {
       type: String,
       default: '',
       immediate: true,
     },
+    eTheme: {
+      type: String,
+      default: 'cmaterial',
+    },
   },
   data() {
     return {
       src: '',
-      darkTheme: false,
       editor: null,
       snippets: [
         { text: 'const', displayText: 'const declarations' },
@@ -79,6 +66,9 @@ export default {
     precode() {
       this.setEditorValue();
     },
+    eTheme() {
+      this.changeTheme();
+    },
   },
   mounted() {
     setTimeout(() => {
@@ -87,18 +77,14 @@ export default {
   },
   methods: {
     submitSolution() {
-      this.$emit('codeSubmitted', this.src);
+      this.$emit('codeSubmitted');
     },
     submitShortcut() {
       this.exitFullScreen();
       this.submitSolution();
     },
     changeTheme() {
-      let themeName = 'neo';
-      if (this.darkTheme === true) {
-        themeName = 'material';
-      }
-      this.setEditorTheme(themeName);
+      this.setEditorTheme(this.eTheme);
     },
     setEditorTheme(themeName) {
       this.editor.setOption('theme', themeName);
@@ -120,7 +106,9 @@ export default {
       this.editor.setOption('fullScreen', !this.editor.getOption('fullScreen'));
     },
     exitFullScreen() {
-      if (this.editor.getOption('fullScreen')) this.editor.setOption('fullScreen', false);
+      if (this.editor.getOption('fullScreen')) {
+        this.editor.setOption('fullScreen', false);
+      }
     },
     setUpEditor() {
       this.editor = CodeMirror(document.getElementById('codearea'), {
@@ -132,6 +120,10 @@ export default {
         indentWithTabs: true,
         lineWrapping: true,
         indentUnit: 4,
+        theme: this.eTheme,
+        mode: this.editorLangMode,
+        foldGutter: true,
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
       });
       this.editor.setOption('extraKeys', {
         'Cmd-E': this.hintSnippets,
@@ -140,6 +132,8 @@ export default {
         'Ctrl-Enter': this.toggleFullScreen,
         'Shift-Cmd-Enter': this.submitShortcut,
         'Shift-Ctrl-Enter': this.submitShortcut,
+        'Ctrl-/': 'toggleComment',
+        'Cmd-/': 'toggleComment',
         Esc: this.exitFullScreen,
       });
       // this.editor.setOption('fullscreen', true);
@@ -154,13 +148,10 @@ export default {
         this.$emit('codeEdited', this.src);
       });
       this.editor.setSize('100%', '100%');
-      this.setEditorTheme('neo');
-      this.setEditorMode();
       this.setEditorValue();
     },
   },
-
 };
 </script>
 
-<style src='./codeeditor.css'/>
+<style src="./codeeditor.css" />

@@ -1,7 +1,7 @@
 <template>
-  <PageWithWidget class="match-content-height">
+  <DefaultPageLayout class="p-5">
     <template slot="main-page">
-      <section class="sub-section about">
+      <section class="about">
         <p>
           <a href="/"><img
             src="../../assets/logo.png"
@@ -40,28 +40,27 @@
         <h5>Instructions</h5>
         <ul>
           <li>
-            Press <span class="bold">ctrl+e or cmd+e</span> for suggestion
+            Press <strong>ctrl+e or cmd+e</strong> for suggestion
             (it's quite limited so don't be disappointed).
           </li>
           <li>
-            Press <span class="bold">ctrl+enter or cmd+enter</span> when cursor is
+            Press <strong>ctrl+enter or cmd+enter</strong> when cursor is
             in the editor to toggle full screen editing.<br>
-            <span class="bold">Esc</span> can also be used to exit full screen editing.
+            <strong>Esc</strong> can also be used to exit full screen editing.
           </li>
           <li>
-            Press <span class="bold">ctrl+shift+enter or cmd+shift+enter</span> when cursor
+            Press <strong>ctrl+shift+enter or cmd+shift+enter</strong> when cursor
             is in the editor to submit solution.
           </li>
           <li>
-            The source code size must be less than <span class="bold">500 KB</span>.
+            The source code size must be less than <strong>500 KB</strong>.
           </li>
-          <li>Inputs and outputs size must be less than <span class="bold">256 KB</span>.</li>
+          <li>Inputs and outputs size must be less than <strong>256 KB</strong>.</li>
           <li>
-            Default/Max time limit is <span class="bold">10 sec</span>. Setting time limit
-            <span class="bold">0</span> means max time limit.
+            Default/Max time limit is <strong>3 sec</strong>.
           </li>
           <li>
-            Do <span class="bold">not</span> refresh the page while waiting for result.
+            Do <strong>not</strong> refresh the page while waiting for result.
             Wait for the loading screen to disappear. <br>If for some reason the submisson
             gets timed out, please re-submit.
           </li>
@@ -71,26 +70,26 @@
         <h5>Verdicts</h5>
         <ul>
           <li>
-            <span class="green bold">OK</span> - Code executed successfully.
+            <strong class="green">OK</strong> - Code executed successfully.
           </li>
           <li>
-            <span class="red bold">CE</span> - Compile Error.
+            <strong class="red">CE</strong> - Compile Error.
           </li>
           <li>
-            <span class="red bold">RE</span> - Runtime Error.
+            <strong class="red">RE</strong> - Runtime Error.
           </li>
           <li>
-            <span class="red bold">TLE</span> - Time Limit Exceeded.
+            <strong class="red">TLE</strong> - Time Limit Exceeded.
           </li>
           <li>
-            <span class="red bold">MLE</span> - Memory Limit Exceeded.
+            <strong class="red">MLE</strong> - Memory Limit Exceeded.
           </li>
           <li>
-            <span class="red bold">OLE</span> - Output Limit Exceeded (output size > 256kb).
+            <strong class="red">OLE</strong> - Output Limit Exceeded (output size > 256kb).
           </li>
-          <li><span class="red bold">UE</span> - Unknown Error (most probably server fault).</li>
+          <li><strong class="red">UE</strong> - Unknown Error (most probably server fault).</li>
           <li>
-            <span class="red bold">IE</span> - Input Error
+            <strong class="red">IE</strong> - Input Error
             (most probably input size too big must be &lt;= 256kb)
           </li>
         </ul>
@@ -103,17 +102,17 @@
         </p>
       </section>
     </template>
-  </PageWithWidget>
+  </DefaultPageLayout>
 </template>
 
 <script>
 
-import PageWithWidget from '@/components/Layout/PageWithWidget.vue';
+import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
 
 export default {
   name: 'ABoutPage',
   components: {
-    PageWithWidget,
+    DefaultPageLayout,
   },
 };
 </script>
@@ -122,6 +121,10 @@ export default {
 
 .sub-section{
   margin-top: 50px;
+}
+
+.sub-section:first-child{
+  margin-top: 0px;
 }
 
 .about p img{
@@ -169,12 +172,8 @@ export default {
   border-radius: 50%;
 }
 
-.bold{
-    font-weight: bold;
-}
-
 .green{
-    color: seagreen;
+    color: var(--success);
 }
 
 .pink{

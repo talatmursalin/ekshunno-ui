@@ -1,0 +1,22 @@
+[theme='slate'] {
+  --primary: #{$gray-800};
+  --secondary: #{$gray-600};
+
+  --success: #{$green};
+  --info: #{$cyan};
+  --warning: #{$orange};
+  --danger: #{$red};
+
+  --light: #{$gray-200};
+  --dark: #{$gray-900};
+
+  --loader-mask-bg: rgba(0, 0, 0, 0.4);
+
+  --text-in-primary: #aaa;
+  --text-in-secondary: #{$gray-400};
+  --text-in-primary-dim: #{$gray-600};
+  --text-in-secondary-dim: #{$gray-600};
+
+  --body-bg: #{$gray-900};
+  --body-color: var(--text-in-primary);
+}

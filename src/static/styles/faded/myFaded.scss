@@ -1,0 +1,21 @@
+[theme='faded'] {
+  --primary: #7b8a8b;
+  --secondary: #{$gray-300};
+
+  --success: #18bc9c;
+  --info: #3498db;
+  --warning: #fd7e14;
+  --danger: #e74c3c;
+
+  --light: #ecf0f1;
+  --dark: #7b8a8b;
+  --loader-mask-bg: rgba(0, 0, 0, 0.5);
+
+  --text-in-primary: #{$gray-300};
+  --text-in-secondary: #{$gray-600};
+  --text-in-primary-dim: #b9b9b9db;
+  --text-in-secondary-dim: #{$gray-600};
+
+  --body-bg: #{$gray-100};
+  --body-color: #{$gray-700};
+}

@@ -1,8 +1,7 @@
 /* eslint-disable eol-last */
 /* eslint-disable indent */
 import Vue from 'vue';
-import BootstrapVue from 'bootstrap-vue';
-import Toasted from 'vue-toasted';
+import 'bootstrap';
 
 import store from './store';
 import router from './router';
@@ -14,10 +13,6 @@ import '@fortawesome/fontawesome-free/js/all.js';
 // Tell Vue to install the plugin.
 
 Vue.config.productionTip = false;
-
-// Init plugin
-Vue.use(BootstrapVue);
-Vue.use(Toasted, { duration: 10000 });
 
 new Vue({
     render: (h) => h(App),

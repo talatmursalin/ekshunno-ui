@@ -3,9 +3,9 @@
 export default {
     data() {
         return {
-            resuming: false,
-            initialCode: '',
+            savingCode: false,
             langOptions: [],
+            languageConf: {},
             compOptions: [],
             compilerData: {},
             langMode: '',
@@ -15,7 +15,6 @@ export default {
                 compiler: '',
                 src: '',
             },
-            prevLang: '',
         };
     },
     computed: {
@@ -25,82 +24,21 @@ export default {
     },
     watch: {
         newlySelLang() {
-            if (!this.resuming && this.submission.lang !== this.prevLang) {
-                this.onLangChange();
-            }
-            this.resuming = false;
+            this.changeLanguageSelection();
         },
     },
     created() {
         this.setLanguages();
     },
     methods: {
-        warnModalClosed(choice) {
-            this.showWaringModal = false;
-            if (choice) {
-                this.changeLanguageSelection();
-            } else {
-                this.submission.lang = this.prevLang;
-            }
-        },
-        onLangChange() {
-            const code = btoa(this.submission.src);
-            if (code !== this.initialCode && code.trim().length !== 0) {
-                this.warningModalContent = 'Switching to a new language would overwrite your current progress. Are you sure you want to proceed?';
-                this.showWaringModal = true;
-            } else {
-                this.changeLanguageSelection();
-            }
-        },
-        changeLanguageSelection() {
-            const langId = this.newlySelLang;
-            this.prevLang = langId;
-            this.langOptions.forEach((lang) => {
-                if (lang.value === langId) {
-                    this.langMode = lang.mode;
-                    this.langPrecode = lang.precode;
-                    this.setCompiler(langId);
-                    this.setInitialCode(lang.precode);
-                }
-            });
-        },
-        resumeEditorState(state) {
-            this.resuming = true;
-            this.submission.lang = state.lang;
-            this.prevLang = state.lang;
-            this.langMode = state.mode;
-            this.langPrecode = state.precode;
-            this.submission.memory = state.memory;
-            this.submission.input = state.input;
-            this.submission.time = state.time;
-            this.setCompiler(state.lang);
-            this.setInitialCode(state.precode);
-        },
-        preapreEditor() {
-            const editorState = localStorage.getItem('editorState');
-            if (editorState) {
-                this.resumeEditorState(JSON.parse(editorState));
-            } else {
-                this.submission.lang = this.langOptions[0].value;
-            }
-        },
         setLanguages() {
             this.$store
                 .dispatch('getLanguages')
                 .then((languageData) => {
-                    languageData.forEach((lang) => {
-                        this.langOptions.push({
-                            value: lang.id,
-                            text: lang.name,
-                            mode: lang.mode,
-                            precode: atob(lang.precode),
-                        });
-                        // console.log(lang.id, lang.compilers);
-                        this.compilerData[lang.id] = lang.compilers;
-                    });
                     if (languageData.length === 0) {
                         throw Error('No supported language found');
                     }
+                    this.setLangOptions(languageData);
                 })
                 .then(() => {
                     this.preapreEditor();
@@ -108,6 +46,46 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
+        },
+        setLangOptions(languageData) {
+            languageData.forEach((lang) => {
+                const code = this.base64decode(lang.precode);
+                this.langOptions.push({
+                    value: lang.id,
+                    text: `${lang.name} (${lang.compilers[0].name})`.toLowerCase(),
+                    mode: lang.mode,
+                    precode: code,
+                });
+                // console.log(lang.id, lang.compilers);
+                this.compilerData[lang.id] = lang.compilers;
+                this.languageConf[lang.id] = lang;
+                this.languageConf[lang.id].precode = code;
+            });
+        },
+        preapreEditor() {
+            const jsonState = this.getEditorState();
+            if (Object.keys(jsonState).length !== 0) {
+                this.resumeEditorState(jsonState);
+            } else {
+                this.submission.lang = this.langOptions[0].value;
+            }
+        },
+        resumeEditorState(state) {
+            this.syncLangOptionCode(state);
+            this.submission.lang = state.selected;
+        },
+        syncLangOptionCode(state) {
+            this.langOptions.forEach((op, i) => {
+                if (op.value in state) {
+                    this.langOptions[i].precode = state[op.value];
+                }
+            });
+        },
+        setUpNewLangSelection(code, mode, langId) {
+            this.langMode = mode;
+            this.langPrecode = code;
+            this.submission.src = code;
+            this.setCompiler(langId);
         },
         setCompiler(langId) {
             this.compOptions = [];
@@ -119,22 +97,48 @@ export default {
             });
             this.submission.compiler = this.compOptions[0].value;
         },
+        changeLanguageSelection() {
+            const langId = this.newlySelLang;
+            const jsonState = this.getEditorState();
+            this.syncLangOptionCode(jsonState);
+            this.langOptions.forEach((lang) => {
+                if (lang.value === langId) {
+                    this.setUpNewLangSelection(lang.precode, lang.mode, langId);
+                    this.saveEditorState();
+                }
+            });
+        },
         saveEditorState() {
-            localStorage.setItem('editorState', JSON.stringify({
-                lang: this.submission.lang,
-                compiler: this.submission.compiler,
-                mode: this.langMode,
-                precode: this.submission.src,
-                input: this.submission.input,
-                memory: this.submission.memory,
-                time: this.submission.time,
-            }));
+            const stateJson = this.getEditorState();
+            stateJson[this.submission.lang] = this.submission.src;
+            stateJson.selected = this.submission.lang;
+            localStorage.setItem('editorState',
+                this.base64encode(JSON.stringify(stateJson)));
+        },
+        saveCurrentCode() {
+            if (!this.savingCode) {
+                this.savingCode = true;
+                this.saveEditorState();
+                this.savingCode = false;
+            }
         },
         codeEdited(src) {
             this.submission.src = src;
+            this.saveCurrentCode();
         },
-        setInitialCode(src) {
-            this.initialCode = btoa(src);
+        getEditorState() {
+            const stateBuffer = localStorage.getItem('editorState');
+            let stateJson = {};
+            if (stateBuffer) {
+                stateJson = JSON.parse(this.base64decode(stateBuffer));
+            }
+            return stateJson;
+        },
+        base64encode(str) {
+            return Buffer.from(str).toString('base64');
+        },
+        base64decode(str) {
+            return Buffer.from(str, 'base64').toString('utf-8');
         },
     },
 };

@@ -1,0 +1,102 @@
+@import '~selectize/dist/css/selectize.css';
+
+.sett-header {
+  display: flex;
+}
+
+.sett-header h4 {
+  margin-bottom: 0px;
+}
+
+.sett-header .close-btn {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.setting-modal {
+  padding: 20px;
+  background: var(--primary);
+  width: 100%;
+  border-radius: 4px;
+  color: var(--text-in-primary);
+}
+
+.setting-modal h5 {
+  text-align: left;
+}
+
+.setting-modal p {
+  color: var(--text-in-primary-dim);
+}
+
+/* select style */
+
+.setting-select >>> .selectize-input {
+  border: 1px solid var(--secondary);
+  padding: 5px 5px;
+  background-color: var(--primary);
+  color: var(--text-in-primary);
+  font-size: inherit;
+  cursor: pointer;
+  caret-color: transparent;
+  margin-top: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.setting-select >>> .selectize-control.single .selectize-input.input-active {
+  background-color: transparent;
+}
+
+.setting-select >>> .selectize-input.dropdown-active::before {
+  background-color: transparent;
+}
+
+.setting-select >>> .selectize-control.single .selectize-input::after {
+  border-color: var(--text-in-primary) transparent transparent transparent;
+}
+
+.setting-select
+  >>> .selectize-control.single
+  .selectize-input.dropdown-active::after {
+  margin-top: -4px;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--text-in-primary) transparent;
+}
+
+.setting-select >>> .selectize-dropdown {
+  background-color: var(--primary);
+  margin: -7px 0 0 0;
+  border: 1px solid var(--secondary);
+  border-top: 0 none;
+  color: var(--text-in-primary);
+  font-size: inherit;
+}
+
+.setting-select >>> .selectize-dropdown .option {
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.setting-select >>> .selectize-control.single .selectize-input.input-active,
+.setting-select
+  >>> .selectize-control.single
+  .selectize-input.input-active
+  input {
+  cursor: pointer;
+}
+
+.setting-select >>> .selectize-dropdown .option:hover {
+  background-color: var(--secondary);
+  color: var(--text-in-secondary);
+}
+
+.setting-select >>> .selectize-dropdown .active {
+  background-color: transparent;
+  color: inherit;
+}
+
+/* select style end */

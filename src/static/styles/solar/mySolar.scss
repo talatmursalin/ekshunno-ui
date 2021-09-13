@@ -1,0 +1,22 @@
+[theme='solar'] {
+  --primary: #073642;
+  --secondary: #fdf6e3;
+
+  --success: #2aa198;
+  --info: #268bd2;
+  --warning: #fd7e14;
+  --danger: #d33682;
+
+  --light: #{$gray-100};
+  --dark: #{$gray-800};
+
+  --loader-mask-bg: rgba(0, 0, 0, 0.6);
+
+  --text-in-primary: #{$gray-400};
+  --text-in-secondary: #{$gray-600};
+  --text-in-primary-dim: #{$gray-600};
+  --text-in-secondary-dim: #{$gray-600};
+
+  --body-bg: rgb(0, 43, 54);
+  --body-color: rgb(131, 148, 150);
+}

@@ -1,9 +1,6 @@
 <template>
-  <PageWithWidget class="match-content-height">
-    <template slot="main-page">
-      <ModalWindow
-        :show-modal-prop="showModal"
-      />
+  <DefaultPageLayout>
+    <template #main-page>
       <div class="dir">
         <h2>{{ dirName }}</h2>
       </div>
@@ -32,19 +29,18 @@
         </div>
       </div>
     </template>
-  </PageWithWidget>
+  </DefaultPageLayout>
 </template>
 
 <script>
 
-import PageWithWidget from '@/components/Layout/PageWithWidget.vue';
-import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
+import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
+// import ModalWindow from '@/components/ModalWindow/ModalWindow.vue';
 
 export default {
   name: 'TestPage',
   components: {
-    PageWithWidget,
-    ModalWindow,
+    DefaultPageLayout,
   },
   data() {
     return {
@@ -84,7 +80,6 @@ export default {
     },
     sendMessage() {
       if (this.connection) {
-        console.log(this.typingMsg);
         this.connection.send(JSON.stringify({ message: this.typingMsg }));
       }
     },

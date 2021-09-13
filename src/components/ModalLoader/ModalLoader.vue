@@ -1,7 +1,8 @@
 <template>
   <div
     id="modal"
-    class="my-modal hide-loader animated"
+    class="my-modal animated"
+    :class="{'fadeIn':fadeIn, 'fadeOut':fadeOut, 'show-loader':show, 'hide-loader':hide}"
   >
     <div
       id="my-modal-content"
@@ -64,12 +65,18 @@
 
 <script>
 
-import jQuery from 'jquery/dist/jquery';
-
 export default {
   name: 'ModalLoader',
   props: {
     activateLoader: { type: Boolean, default: false },
+  },
+  data() {
+    return {
+      fadeIn: false,
+      fadeOut: false,
+      hide: true,
+      show: false,
+    };
   },
   watch: {
     activateLoader() {
@@ -77,45 +84,25 @@ export default {
     },
   },
   methods: {
-    inAnimateClass() {
-      return 'fadeIn';
-    },
-    outAnimateClass() {
-      return 'fadeOut';
-    },
     reloadLoader() {
-      const element = jQuery('.my-modal');
       if (this.activateLoader) {
-        this.prepareLoaderShow(element);
-        this.showLoader(element);
+        this.showLoader();
       } else {
-        this.prepareHideLoader(element);
-        this.hideLoader(element);
+        this.hideLoader();
       }
     },
-    addClassTo(element, classes) {
-      classes.forEach((cls) => {
-        element.addClass(cls);
-      });
+    showLoader() {
+      this.hide = false;
+      this.fadeOut = false;
+      this.fadeIn = true;
+      this.show = true;
     },
-    removeClassFrom(element, classes) {
-      classes.forEach((cls) => {
-        element.removeClass(cls);
-      });
-    },
-    prepareLoaderShow(element) {
-      this.removeClassFrom(element, ['hide-loader', this.outAnimateClass()]);
-    },
-    showLoader(element) {
-      this.addClassTo(element, [this.inAnimateClass(), 'show-loader']);
-    },
-    prepareHideLoader(element) {
-      this.removeClassFrom(element, [this.inAnimateClass(), 'show-loader']);
-    },
-    hideLoader(element) {
-      element.addClass(this.outAnimateClass());
+    hideLoader() {
+      this.fadeIn = false;
+      this.show = false;
+      this.fadeOut = true;
       setTimeout(() => {
-        element.addClass('hide-loader');
+        this.hide = true;
       }, 500);
     },
   },

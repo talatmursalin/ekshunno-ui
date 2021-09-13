@@ -1,112 +1,14 @@
-@import "../../../node_modules/codemirror/lib/codemirror.css";
-@import "../../../node_modules/codemirror/addon/hint/show-hint.css";
-@import "../../../node_modules/codemirror/addon/display/fullscreen.css";
-@import "../../../node_modules/codemirror/theme/material.css";
-@import "../../../node_modules/codemirror/theme/neo.css";
-
-.text-right {
-  text-align: right;
-}
+@import '~codemirror/lib/codemirror.css';
+@import '~codemirror/addon/hint/show-hint.css';
+@import '~codemirror/addon/display/fullscreen.css';
+@import '~codemirror/addon/fold/foldgutter.css';
+@import './themes/all.css';
 
 #codearea {
-  height: 700px;
-  background: var(--inputBackground);
-  border: 1px solid #eee;
-  border-radius: 4px;
+  height: 1050px;
+  background: #fff;
+  /* border: 1px solid #eee; */
+  /* border-radius: 4px; */
   overflow: hidden;
   font-size: 16px;
-}
-
-.cm-s-neo.CodeMirror {
-  /* background: #f2f2f2; */
-  background: inherit;
-}
-
-/* toggle btn */
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 20px;
-}
-
-.switch input {
-  display: none;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #bbb;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: #343a40;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(30px);
-  -ms-transform: translateX(30px);
-  transform: translateX(30px);
-}
-
-.on {
-  display: none;
-}
-
-.on,
-.off {
-  color: white;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  font-size: 10px;
-  font-family: Verdana, sans-serif;
-}
-
-.off {
-  margin-left: 7px;
-}
-
-input:checked + .slider .on {
-  display: block;
-  margin-left: -7px;
-}
-
-input:checked + .slider .off {
-  display: none;
-}
-
-/* Rounded sliders */
-
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
 }

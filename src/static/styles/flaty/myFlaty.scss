@@ -1,0 +1,21 @@
+[theme='flaty'] {
+  --primary: rgba(44, 62, 80, 1);
+  --secondary: #{$gray-300};
+
+  --success: #18bc9c;
+  --info: #3498db;
+  --warning: #fd7e14;
+  --danger: #e74c3c;
+
+  --light: #ecf0f1;
+  --dark: #7b8a8b;
+  --loader-mask-bg: rgba(0, 0, 0, 0.5);
+
+  --text-in-primary: #{$gray-400};
+  --text-in-secondary: #{$gray-700};
+  --text-in-primary-dim: #{$gray-600};
+  --text-in-secondary-dim: #{$gray-600};
+
+  --body-bg: #{$gray-200};
+  --body-color: #{$gray-700};
+}

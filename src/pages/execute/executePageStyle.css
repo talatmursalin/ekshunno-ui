@@ -1,0 +1,184 @@
+@import '~selectize/dist/css/selectize.css';
+
+.editor {
+  margin-top: 40px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+}
+
+.editor-header {
+  height: 40px;
+  width: 100%;
+  border-bottom: 1px solid var(--primary);
+}
+
+.io-block {
+  border-left: 1px solid var(--primary);
+}
+
+.input-block-header,
+.output-block-header {
+  background: var(--primary);
+  padding: 2px 5px;
+  color: var(--text-in-primary);
+}
+
+.input-block-body {
+  display: block;
+  height: 525px;
+}
+
+.output-block-body {
+  display: block;
+  height: 514px;
+}
+
+.output-block-body textarea,
+.input-block-body textarea {
+  border: none;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  resize: none;
+  background: transparent;
+  color: inherit;
+}
+
+.output-block-body textarea:focus,
+.input-block-body textarea:focus {
+  outline: none !important;
+  border: 1px solid var(--primary);
+}
+
+.editor-controlls {
+  display: flex;
+  height: 45px;
+  position: relative;
+  padding: 0px 10px;
+  border-bottom: 1px solid var(--primary);
+}
+
+.play-sett-btns {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.sett-icon {
+  width: 23px;
+  height: 23px;
+}
+
+.run-btn {
+  color: var(--success);
+}
+
+/* custom select style */
+
+.lang-select {
+  width: 200px;
+  font-size: 14px;
+}
+
+.lang-select >>> .selectize-input {
+  border: 1px solid var(--primary);
+  padding: 5px 5px;
+  background-color: var(--body-bg);
+  color: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  caret-color: transparent;
+  margin-top: 6px;
+  box-shadow: none;
+}
+
+.lang-select >>> .selectize-control.single .selectize-input.input-active {
+  background-color: transparent;
+}
+
+.lang-select >>> .selectize-input.dropdown-active::before {
+  background-color: transparent;
+}
+
+.lang-select >>> .selectize-control.single .selectize-input::after {
+  border-color: var(--body-color) transparent transparent transparent;
+}
+
+.lang-select
+  >>> .selectize-control.single
+  .selectize-input.dropdown-active::after {
+  margin-top: -4px;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--body-color) transparent;
+}
+
+.lang-select >>> .selectize-dropdown {
+  background-color: var(--body-bg);
+  margin: -6px 0 0 0;
+  border: 1px solid var(--primary);
+  border-top: 0 none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.lang-select >>> .selectize-control.single .selectize-input.input-active,
+.lang-select >>> .selectize-control.single .selectize-input.input-active input {
+  cursor: pointer;
+}
+
+.lang-select >>> .selectize-dropdown .option {
+  cursor: pointer;
+}
+
+.lang-select >>> .selectize-dropdown .option:hover {
+  background-color: var(--primary);
+  color: var(--text-in-primary);
+}
+
+.lang-select >>> .selectize-dropdown .active {
+  background-color: transparent;
+  color: inherit;
+}
+
+/*select style end */
+
+.input-group .verdict-text {
+  font-weight: bold;
+}
+
+.input-group .green-color {
+  color: green;
+  font-weight: bold;
+}
+
+.input-group .red-color {
+  color: red;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 700px) {
+  .noborderinput .input-group-lg .input-group-prepend {
+    display: none;
+  }
+
+  .noborderinput .input-group-lg .input-group-append {
+    display: none;
+  }
+  .lang-select select {
+    width: 120px;
+  }
+  .editor {
+    margin-top: 10px;
+    border: none;
+  }
+}
