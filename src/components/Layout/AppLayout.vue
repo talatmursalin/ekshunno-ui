@@ -27,4 +27,11 @@ export default {
   position: relative;
   padding-bottom: 160px;
 }
+
+@media only screen and (max-width: 700px) {
+  .encloser {
+    padding-bottom: 60px;
+  }
+}
+
 </style>

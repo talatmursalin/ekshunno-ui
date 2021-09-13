@@ -12,25 +12,68 @@
   border-bottom: 1px solid var(--primary);
 }
 
+/* io block start */
+
+.full-div {
+  height: calc(100% - 30px);
+  transition: height 0.5s ease;
+}
+
+.half-div {
+  height: 50%;
+  transition: height 0.5s ease;
+}
+
+.half-div-close {
+  height: 30px;
+  transition: height 0.5s ease;
+}
+
 .io-block {
   border-left: 1px solid var(--primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.input-block-header {
+  cursor: pointer;
+  position: relative;
+}
+
+.full-div .output-block-header {
+  border-top: 1px solid var(--secondary);
+}
+
+.input-block-header::after {
+  content: '\f0d7';
+  font-family: 'Font Awesome 5 Free';
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 900;
+  position: absolute;
+  right: 10px;
+  transform: rotate(0deg);
+  transition: all 0.5s ease;
+}
+
+.half-div-close .input-block-header::after {
+  transform: rotate(90deg);
+  transition: all 0.5s ease;
 }
 
 .input-block-header,
 .output-block-header {
   background: var(--primary);
-  padding: 2px 5px;
+  padding-left: 5px;
   color: var(--text-in-primary);
+  height: 30px;
+  line-height: 30px;
 }
 
-.input-block-body {
-  display: block;
-  height: 525px;
-}
-
+.input-block-body,
 .output-block-body {
   display: block;
-  height: 514px;
+  height: calc(100% - 30px);
 }
 
 .output-block-body textarea,
@@ -53,6 +96,8 @@
   border: 1px solid var(--primary);
 }
 
+/* io block end */
+
 .editor-controlls {
   display: flex;
   height: 45px;
@@ -72,11 +117,6 @@
   display: flex;
   align-items: center;
   margin-right: 20px;
-}
-
-.sett-icon {
-  width: 23px;
-  height: 23px;
 }
 
 .run-btn {
@@ -167,18 +207,14 @@
 }
 
 @media only screen and (max-width: 700px) {
-  .noborderinput .input-group-lg .input-group-prepend {
-    display: none;
-  }
-
-  .noborderinput .input-group-lg .input-group-append {
-    display: none;
-  }
-  .lang-select select {
-    width: 120px;
-  }
   .editor {
     margin-top: 10px;
     border: none;
+  }
+  .lang-select {
+    width: 180px;
+  }
+  .io-block {
+    min-height: 600px;
   }
 }

@@ -65,8 +65,14 @@
           />
         </div>
         <div class="col-md-4 io-block">
-          <div class="input-block">
-            <div class="input-block-header">
+          <div
+            class="input-block"
+            :class="stdinClass"
+          >
+            <div
+              class="input-block-header"
+              @click="stdInFlagToggle"
+            >
               stdin
             </div>
             <div class="input-block-body">
@@ -77,7 +83,10 @@
               />
             </div>
           </div>
-          <div class="output-block">
+          <div
+            class="output-block"
+            :class="stdoutClass"
+          >
             <div class="output-block-header">
               output
             </div>
@@ -132,6 +141,7 @@ export default {
       activateLoader: false,
       showSettModal: false,
       socket: null,
+      stdInFlag: true,
       settings: {
         mxTime: 3.0,
         selTime: 3.0,
@@ -156,7 +166,6 @@ export default {
   computed: {
     verdictColor() {
       if (this.result.verdict === 'OK' || this.result.verdict === 'AC') {
-        // return 'green-color';
         return 'success';
       }
       if (this.result.verdict === 'NULL') {
@@ -164,8 +173,17 @@ export default {
       }
       return 'danger';
     },
-    hasResult() {
-      return this.result.verdict !== 'NULL';
+    stdinClass() {
+      if (this.stdInFlag) {
+        return 'half-div';
+      }
+      return 'half-div-close';
+    },
+    stdoutClass() {
+      if (this.stdInFlag) {
+        return 'half-div';
+      }
+      return 'full-div';
     },
   },
   created() {
@@ -273,6 +291,9 @@ export default {
     },
     langSelChanged(lang) {
       this.submission.lang = lang.value;
+    },
+    stdInFlagToggle() {
+      this.stdInFlag = !this.stdInFlag;
     },
     uploadFile() {
 
