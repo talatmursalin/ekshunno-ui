@@ -80,7 +80,6 @@ export default {
     },
     sendMessage() {
       if (this.connection) {
-        console.log(this.typingMsg);
         this.connection.send(JSON.stringify({ message: this.typingMsg }));
       }
     },

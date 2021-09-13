@@ -1,7 +1,7 @@
 <template>
   <div class="setting-modal">
     <div class="sett-header">
-      <h4>settings</h4>
+      <h4>Settings</h4>
       <span
         class="close-btn"
         @click="closeModal"
@@ -12,7 +12,7 @@
     <hr>
     <div class="row no-gutters p-2">
       <div class="col-md-8">
-        <h5>time</h5>
+        <h5>Time</h5>
         <p>Max execution time for the program</p>
       </div>
       <div class="setting-select col-md-4">
@@ -39,7 +39,7 @@
     <hr>
     <div class="row no-gutters p-2">
       <div class="col-md-8">
-        <h5>theme</h5>
+        <h5>Theme</h5>
         <p>Text editor color theme</p>
       </div>
       <div class="setting-select col-md-4">
@@ -93,7 +93,6 @@ export default {
       return this.settings.selMemory;
     },
     cetheme() {
-      console.log('sel', this.settings.selEditorTheme);
       return this.settings.selEditorTheme;
     },
     timeOptions() {

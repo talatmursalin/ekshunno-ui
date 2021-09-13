@@ -172,9 +172,6 @@ export default {
     this.connectSocket();
     this.reloadSettings();
   },
-  mounted() {
-    console.log(editorThemeList);
-  },
   methods: {
     connectSocket() {
       this.socket = io(request.defaults.socketEndPoint);

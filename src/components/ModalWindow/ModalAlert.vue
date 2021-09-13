@@ -62,7 +62,6 @@ export default {
     },
     emitModalClose(choice) {
       this.showModal = false;
-      console.log(choice);
       this.$emit('modalClosed', choice);
     },
   },
