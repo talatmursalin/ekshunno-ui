@@ -38,6 +38,7 @@
 .input-block-header {
   cursor: pointer;
   position: relative;
+  border-radius: 0px 4px 0px 0px;
 }
 
 .full-div .output-block-header {
@@ -68,12 +69,14 @@
   color: var(--text-in-primary);
   height: 30px;
   line-height: 30px;
+  margin-right: -1px;
 }
 
 .input-block-body,
 .output-block-body {
   display: block;
   height: calc(100% - 30px);
+  margin-right: -1px;
 }
 
 .output-block-body textarea,
@@ -90,10 +93,24 @@
   color: inherit;
 }
 
+.output-block-body textarea::selection,
+.input-block-body textarea::selection {
+  background-color: var(--primary);
+  color: var(--text-in-primay);
+}
+.output-block-body textarea::-moz-selection,
+.input-block-body textarea::-moz-selection {
+  background-color: var(--primary);
+  color: var(--text-in-primary);
+}
+
+.half-div-close .input-block-body textarea {
+  display: none;
+}
+
 .output-block-body textarea:focus,
 .input-block-body textarea:focus {
   outline: none !important;
-  border: 1px solid var(--primary);
 }
 
 /* io block end */
