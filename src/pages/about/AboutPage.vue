@@ -53,9 +53,9 @@
             is in the editor to submit solution.
           </li>
           <li>
-            The source code size must be less than <strong>500 KB</strong>.
+            Both request(input size + source size) and Output size
+            must be less than <strong>256 KB</strong>.
           </li>
-          <li>Inputs and outputs size must be less than <strong>256 KB</strong>.</li>
           <li>
             Default/Max time limit is <strong>3 sec</strong>.
           </li>
@@ -87,10 +87,13 @@
           <li>
             <strong class="red">OLE</strong> - Output Limit Exceeded (output size > 256kb).
           </li>
+          <li>
+            <strong class="red">IS</strong> - Invalid submission
+            (missing or corrupted submission params)
+          </li>
           <li><strong class="red">UE</strong> - Unknown Error (most probably server fault).</li>
           <li>
-            <strong class="red">IE</strong> - Input Error
-            (most probably input size too big must be &lt;= 256kb)
+            <strong class="red">IE</strong> - Internal Error
           </li>
         </ul>
       </section>
