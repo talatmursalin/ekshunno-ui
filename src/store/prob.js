@@ -24,7 +24,7 @@ export default {
                     if (res.status === 200) {
                         return res.json();
                     }
-                    throw Error('submit failed');
+                    throw Error(`submit failed: ${res.statusText}`);
                 })
                 .then((data) => data.submissionRoom);
         },

@@ -24,10 +24,19 @@ export default {
     color: #6c757d;
     line-height: 60px;
     padding-left: 15px;
-    /* background:#6cf; */
 }
 
 .red{
   color: red
 }
+
+.contentFooter a{
+  color: var(--info);
+}
+
+.contentFooter a:hover{
+  color: var(--info);
+  filter: brightness(80%);
+}
+
 </style>

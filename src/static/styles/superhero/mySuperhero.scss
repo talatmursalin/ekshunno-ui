@@ -1,0 +1,22 @@
+[theme='superhero'] {
+  --primary: rgb(32, 55, 76);
+  --secondary: #{$gray-200};
+
+  --success: #5cb85c;
+  --info: #5bc0de;
+  --warning: #f0ad4e;
+  --danger: #d9534f;
+
+  --light: #{$gray-100};
+  --dark: #20374c;
+
+  --loader-mask-bg: rgba(0, 0, 0, 0.6);
+
+  --text-in-primary: #{$gray-400};
+  --text-in-secondary: #{$gray-700};
+  --text-in-primary-dim: #{$gray-600};
+  --text-in-secondary-dim: #{$gray-600};
+
+  --body-bg: #0f2537;
+  --body-color: #{$gray-400};
+}

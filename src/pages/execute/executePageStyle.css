@@ -1,0 +1,237 @@
+@import '~selectize/dist/css/selectize.css';
+
+.editor {
+  margin-top: 40px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+}
+
+.editor-header {
+  height: 40px;
+  width: 100%;
+  border-bottom: 1px solid var(--primary);
+}
+
+/* io block start */
+
+.full-div {
+  height: calc(100% - 30px);
+  transition: height 0.5s ease;
+}
+
+.half-div {
+  height: 50%;
+  transition: height 0.5s ease;
+}
+
+.half-div-close {
+  height: 30px;
+  transition: height 0.5s ease;
+}
+
+.io-block {
+  border-left: 1px solid var(--primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.input-block-header {
+  cursor: pointer;
+  position: relative;
+  border-radius: 0px 4px 0px 0px;
+}
+
+.full-div .output-block-header {
+  border-top: 1px solid var(--secondary);
+}
+
+.input-block-header::after {
+  content: '\f0d7';
+  font-family: 'Font Awesome 5 Free';
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 900;
+  position: absolute;
+  right: 10px;
+  transform: rotate(0deg);
+  transition: all 0.5s ease;
+}
+
+.half-div-close .input-block-header::after {
+  transform: rotate(90deg);
+  transition: all 0.5s ease;
+}
+
+.input-block-header,
+.output-block-header {
+  background: var(--primary);
+  padding-left: 5px;
+  color: var(--text-in-primary);
+  height: 30px;
+  line-height: 30px;
+  margin-right: -1px;
+}
+
+.input-block-body,
+.output-block-body {
+  display: block;
+  height: calc(100% - 30px);
+  margin-right: -1px;
+}
+
+.output-block-body textarea,
+.input-block-body textarea {
+  border: none;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  resize: none;
+  background: transparent;
+  color: inherit;
+}
+
+.output-block-body textarea::selection,
+.input-block-body textarea::selection {
+  background-color: var(--primary);
+  color: var(--text-in-primay);
+}
+.output-block-body textarea::-moz-selection,
+.input-block-body textarea::-moz-selection {
+  background-color: var(--primary);
+  color: var(--text-in-primary);
+}
+
+.half-div-close .input-block-body textarea {
+  display: none;
+}
+
+.output-block-body textarea:focus,
+.input-block-body textarea:focus {
+  outline: none !important;
+}
+
+/* io block end */
+
+.editor-controlls {
+  display: flex;
+  height: 45px;
+  position: relative;
+  padding: 0px 10px;
+  border-bottom: 1px solid var(--primary);
+}
+
+.play-sett-btns {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.run-btn {
+  color: var(--success);
+}
+
+/* custom select style */
+
+.lang-select {
+  width: 200px;
+  font-size: 14px;
+}
+
+.lang-select >>> .selectize-input {
+  border: 1px solid var(--primary);
+  padding: 5px 5px;
+  background-color: var(--body-bg);
+  color: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  caret-color: transparent;
+  margin-top: 6px;
+  box-shadow: none;
+}
+
+.lang-select >>> .selectize-control.single .selectize-input.input-active {
+  background-color: transparent;
+}
+
+.lang-select >>> .selectize-input.dropdown-active::before {
+  background-color: transparent;
+}
+
+.lang-select >>> .selectize-control.single .selectize-input::after {
+  border-color: var(--body-color) transparent transparent transparent;
+}
+
+.lang-select
+  >>> .selectize-control.single
+  .selectize-input.dropdown-active::after {
+  margin-top: -4px;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--body-color) transparent;
+}
+
+.lang-select >>> .selectize-dropdown {
+  background-color: var(--body-bg);
+  margin: -6px 0 0 0;
+  border: 1px solid var(--primary);
+  border-top: 0 none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.lang-select >>> .selectize-control.single .selectize-input.input-active,
+.lang-select >>> .selectize-control.single .selectize-input.input-active input {
+  cursor: pointer;
+}
+
+.lang-select >>> .selectize-dropdown .option {
+  cursor: pointer;
+}
+
+.lang-select >>> .selectize-dropdown .option:hover {
+  background-color: var(--primary);
+  color: var(--text-in-primary);
+}
+
+.lang-select >>> .selectize-dropdown .active {
+  background-color: transparent;
+  color: inherit;
+}
+
+/*select style end */
+
+.input-group .verdict-text {
+  font-weight: bold;
+}
+
+.input-group .green-color {
+  color: green;
+  font-weight: bold;
+}
+
+.input-group .red-color {
+  color: red;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 700px) {
+  .editor {
+    margin-top: 10px;
+    border: none;
+  }
+  .lang-select {
+    width: 180px;
+  }
+  .io-block {
+    min-height: 600px;
+  }
+}
