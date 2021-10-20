@@ -146,7 +146,9 @@ export default {
   },
   created() {
     const theme = localStorage.getItem('sTheme');
-    this.selected = this.base64decode(theme);
+    if (theme) {
+      this.selected = this.base64decode(theme);
+    }
     this.themeChanged(this.selected);
   },
   methods: {
