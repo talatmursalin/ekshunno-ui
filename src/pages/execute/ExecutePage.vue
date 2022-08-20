@@ -37,28 +37,34 @@
               />
             </div>
             <div class="play-sett-btns">
-              <span
-                class="icon-btn run-btn"
-                @click="codeSubmitted"
-              ><font-awesome-icon icon="fa-play" />
-              </span>
+              <ToolTip text="Execute program">
+                <span
+                  class="icon-btn run-btn"
+                  @click="codeSubmitted"
+                ><font-awesome-icon icon="fa-play" />
+                </span>
+              </ToolTip>
               <!-- <span
                 class="icon-btn"
                 @click="uploadFile"
               ><font-awesome-icon icon="fa-file-import" />
               </span> -->
-              <span
-                class="icon-btn"
-                @click="uploadFile"
-              ><font-awesome-icon icon="fa-arrow-rotate-right" />
-              </span>
-              <span
-                class="icon-btn"
-                @click="showSettingsModal"
-              >
-                <font-awesome-icon icon="fa-solid fa-sliders" />
-              <!-- <i class="fas fa-cog" /> -->
-              </span>
+              <ToolTip text="Reset to default code">
+                <span
+                  class="icon-btn"
+                  @click="resetCode"
+                ><font-awesome-icon icon="fa-arrow-rotate-right" />
+                </span>
+              </ToolTip>
+              <ToolTip text="Open editor settings">
+                <span
+                  class="icon-btn"
+                  @click="showSettingsModal"
+                >
+                  <font-awesome-icon icon="fa-solid fa-sliders" />
+                  <!-- <i class="fas fa-cog" /> -->
+                </span>
+              </ToolTip>
             </div>
           </div>
           <CodeEditor
@@ -124,6 +130,7 @@ import Alert from '@/components/Alert/Alert.vue';
 import executeMixin from '@/mixins/execute';
 import request from '@/request';
 import VSelectize from '@isneezy/vue-selectize';
+import ToolTip from '@/components/Tooltip/ToolTip.vue';
 // eslint-disable-next-line import/extensions
 import { editorThemeList } from '@/utils/utils.js';
 
@@ -138,6 +145,7 @@ export default {
     SettingsModal,
     Alert,
     VSelectize,
+    ToolTip,
   },
   mixins: [executeMixin],
 
@@ -304,6 +312,9 @@ export default {
       this.stdInFlag = !this.stdInFlag;
     },
     uploadFile() {
+
+    },
+    resetCode() {
 
     },
   },
