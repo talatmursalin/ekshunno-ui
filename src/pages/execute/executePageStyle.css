@@ -45,19 +45,14 @@
   border-top: 1px solid var(--secondary);
 }
 
-.input-block-header::after {
-  content: '\f0d7';
-  font-family: 'Font Awesome 5 Free';
-  display: inline-block;
-  font-size: 24px;
-  font-weight: 900;
+.cv-pull-right{
   position: absolute;
   right: 10px;
   transform: rotate(0deg);
   transition: all 0.5s ease;
 }
 
-.half-div-close .input-block-header::after {
+.half-div-close .input-block-header .cv-pull-right {
   transform: rotate(90deg);
   transition: all 0.5s ease;
 }

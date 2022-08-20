@@ -2,15 +2,25 @@
 /* eslint-disable indent */
 import Vue from 'vue';
 import 'bootstrap';
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core';
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+// import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+/* import specific icons */
+import {
+     faPlay, faFileImport, faSliders, faArrowRotateRight, faChevronDown,
+} from '@fortawesome/free-solid-svg-icons';
 
 import store from './store';
 import router from './router';
 import App from './App.vue';
-import '@fortawesome/fontawesome-free/css/all.css';
-// eslint-disable-next-line import/extensions
-import '@fortawesome/fontawesome-free/js/all.js';
 
-// Tell Vue to install the plugin.
+/* add icons to the library */
+library.add(faPlay, faFileImport, faSliders, faArrowRotateRight, faChevronDown);
+
+/* add font awesome icon component */
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 

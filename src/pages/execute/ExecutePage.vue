@@ -40,18 +40,23 @@
               <span
                 class="icon-btn run-btn"
                 @click="codeSubmitted"
-              ><i class="fa fa-play" />
+              ><font-awesome-icon icon="fa-play" />
               </span>
               <!-- <span
                 class="icon-btn"
                 @click="uploadFile"
-              ><i class="fas fa-file-upload" />
+              ><font-awesome-icon icon="fa-file-import" />
               </span> -->
+              <span
+                class="icon-btn"
+                @click="uploadFile"
+              ><font-awesome-icon icon="fa-arrow-rotate-right" />
+              </span>
               <span
                 class="icon-btn"
                 @click="showSettingsModal"
               >
-                <i class="fas fa-sliders-h" />
+                <font-awesome-icon icon="fa-solid fa-sliders" />
               <!-- <i class="fas fa-cog" /> -->
               </span>
             </div>
@@ -73,6 +78,9 @@
               class="input-block-header"
               @click="stdInFlagToggle"
             >
+              <span class="cv-pull-right">
+                <font-awesome-icon icon="fa-solid fa-chevron-down" />
+              </span>
               stdin
             </div>
             <div class="input-block-body">
