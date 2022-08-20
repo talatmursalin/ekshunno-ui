@@ -2,6 +2,12 @@
   <DefaultPageLayout>
     <template #page-top>
       <ModalLoader :activate-loader="activateLoader" />
+      <ModalAlert
+        :show-alert-modal="alertModalFlag"
+        alert-title="Are you sure?"
+        alert-text="Your code will be discarded and reset to the default code!"
+        @alertModalClosed="alertModalClosed"
+      />
       <ModalMaker
         :show-modal-prop="showSettModal"
       >
@@ -37,7 +43,10 @@
               />
             </div>
             <div class="play-sett-btns">
-              <ToolTip text="Execute program">
+              <ToolTip
+                text="Execute program"
+                :position-left="-235"
+              >
                 <span
                   class="icon-btn run-btn"
                   @click="codeSubmitted"
@@ -49,20 +58,25 @@
                 @click="uploadFile"
               ><font-awesome-icon icon="fa-file-import" />
               </span> -->
-              <ToolTip text="Reset to default code">
+              <ToolTip
+                text="Reset to default code"
+                :position-left="-200"
+              >
                 <span
                   class="icon-btn"
-                  @click="resetCode"
+                  @click="resetCodeBtnPressed"
                 ><font-awesome-icon icon="fa-arrow-rotate-right" />
                 </span>
               </ToolTip>
-              <ToolTip text="Open editor settings">
+              <ToolTip
+                text="Open editor settings"
+                :position-left="-200"
+              >
                 <span
                   class="icon-btn"
                   @click="showSettingsModal"
                 >
                   <font-awesome-icon icon="fa-solid fa-sliders" />
-                  <!-- <i class="fas fa-cog" /> -->
                 </span>
               </ToolTip>
             </div>
@@ -124,6 +138,7 @@ import io from 'socket.io-client';
 import CodeEditor from '@/components/codeeditor/CodeEditor.vue';
 import ModalLoader from '@/components/ModalLoader/ModalLoader.vue';
 import ModalMaker from '@/components/ModalWindow/ModalMaker.vue';
+import ModalAlert from '@/components/ModalWindow/ModalAlert.vue';
 import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
 import SettingsModal from '@/components/SettingsModal/SettingsModal.vue';
 import Alert from '@/components/Alert/Alert.vue';
@@ -142,6 +157,7 @@ export default {
     CodeEditor,
     ModalLoader,
     ModalMaker,
+    ModalAlert,
     SettingsModal,
     Alert,
     VSelectize,
@@ -156,6 +172,7 @@ export default {
       showLocalMsg: false,
       activateLoader: false,
       showSettModal: false,
+      alertModalFlag: false,
       socket: null,
       stdInFlag: true,
       settings: {
@@ -314,8 +331,19 @@ export default {
     uploadFile() {
 
     },
+    alertModalClosed(choice) {
+      this.alertModalFlag = false;
+      if (choice) {
+        this.resetCode();
+      }
+    },
+    resetCodeBtnPressed() {
+      this.langPrecode = this.submission.src;
+      this.alertModalFlag = true;
+    },
     resetCode() {
-
+      const langConf = this.languageConf[this.submission.lang];
+      this.langPrecode = langConf.precode;
     },
   },
 };

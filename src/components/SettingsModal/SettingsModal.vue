@@ -6,7 +6,7 @@
         class="close-btn"
         @click="closeModal"
       >
-        <i class="fas fa-times" />
+        <font-awesome-icon icon="fa-solid fa-times" />
       </span>
     </div>
     <hr>

@@ -3,6 +3,7 @@
     <slot />
     <div
       class="tooltip"
+      :style="{ 'left': leftPosition }"
     >
       <span
         class="text"
@@ -19,6 +20,15 @@ export default {
       type: String,
       required: true,
     },
+    positionLeft: {
+      type: Number,
+      default: 50,
+    },
+  },
+  computed: {
+    leftPosition() {
+      return `${this.positionLeft}%`;
+    },
   },
 };
 </script>
@@ -32,8 +42,8 @@ export default {
 .tooltip-box:hover .tooltip{
   opacity: 1;
   transition-property: opacity;
-  transition-duration: 1.5s;
-  transition-delay: 1s;
+  transition-duration: 1s;
+  transition-delay: 0.5s;
 }
 
 .tooltip {
@@ -43,7 +53,6 @@ export default {
   border-radius: 4px;
   width: 160px;
   bottom: 160%;
-  left: -185%;
   /* margin-left: -100%; */
 
   opacity: 0;
@@ -55,7 +64,7 @@ export default {
   background: var(--primary);
 }
 
-/* .text::after {
+.text::after {
   content: " ";
   position: absolute;
   top: 100%;
@@ -63,6 +72,6 @@ export default {
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #a782e8 transparent transparent transparent; */
-/* } */
+  border-color: var(--primary) transparent transparent transparent;
+}
 </style>
