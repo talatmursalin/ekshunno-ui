@@ -2,6 +2,12 @@
   <DefaultPageLayout>
     <template #page-top>
       <ModalLoader :activate-loader="activateLoader" />
+      <ModalAlert
+        :show-alert-modal="alertModalFlag"
+        alert-title="Are you sure?"
+        alert-text="Your code will be discarded and reset to the default code!"
+        @alertModalClosed="alertModalClosed"
+      />
       <ModalMaker
         :show-modal-prop="showSettModal"
       >
@@ -37,23 +43,42 @@
               />
             </div>
             <div class="play-sett-btns">
-              <span
-                class="icon-btn run-btn"
-                @click="codeSubmitted"
-              ><i class="fa fa-play" />
-              </span>
+              <ToolTip
+                text="Execute program"
+                :position-left="-235"
+              >
+                <span
+                  class="icon-btn run-btn"
+                  @click="codeSubmitted"
+                ><font-awesome-icon icon="fa-play" />
+                </span>
+              </ToolTip>
               <!-- <span
                 class="icon-btn"
                 @click="uploadFile"
-              ><i class="fas fa-file-upload" />
+              ><font-awesome-icon icon="fa-file-import" />
               </span> -->
-              <span
-                class="icon-btn"
-                @click="showSettingsModal"
+              <ToolTip
+                text="Reset to default code"
+                :position-left="-200"
               >
-                <i class="fas fa-sliders-h" />
-              <!-- <i class="fas fa-cog" /> -->
-              </span>
+                <span
+                  class="icon-btn"
+                  @click="resetCodeBtnPressed"
+                ><font-awesome-icon icon="fa-arrow-rotate-right" />
+                </span>
+              </ToolTip>
+              <ToolTip
+                text="Open editor settings"
+                :position-left="-200"
+              >
+                <span
+                  class="icon-btn"
+                  @click="showSettingsModal"
+                >
+                  <font-awesome-icon icon="fa-solid fa-sliders" />
+                </span>
+              </ToolTip>
             </div>
           </div>
           <CodeEditor
@@ -73,6 +98,9 @@
               class="input-block-header"
               @click="stdInFlagToggle"
             >
+              <span class="cv-pull-right">
+                <font-awesome-icon icon="fa-solid fa-chevron-down" />
+              </span>
               stdin
             </div>
             <div class="input-block-body">
@@ -110,12 +138,14 @@ import io from 'socket.io-client';
 import CodeEditor from '@/components/codeeditor/CodeEditor.vue';
 import ModalLoader from '@/components/ModalLoader/ModalLoader.vue';
 import ModalMaker from '@/components/ModalWindow/ModalMaker.vue';
+import ModalAlert from '@/components/ModalWindow/ModalAlert.vue';
 import DefaultPageLayout from '@/components/Layout/DefaultPageLayout.vue';
 import SettingsModal from '@/components/SettingsModal/SettingsModal.vue';
 import Alert from '@/components/Alert/Alert.vue';
 import executeMixin from '@/mixins/execute';
 import request from '@/request';
 import VSelectize from '@isneezy/vue-selectize';
+import ToolTip from '@/components/Tooltip/ToolTip.vue';
 // eslint-disable-next-line import/extensions
 import { editorThemeList } from '@/utils/utils.js';
 
@@ -127,9 +157,11 @@ export default {
     CodeEditor,
     ModalLoader,
     ModalMaker,
+    ModalAlert,
     SettingsModal,
     Alert,
     VSelectize,
+    ToolTip,
   },
   mixins: [executeMixin],
 
@@ -140,6 +172,7 @@ export default {
       showLocalMsg: false,
       activateLoader: false,
       showSettModal: false,
+      alertModalFlag: false,
       socket: null,
       stdInFlag: true,
       settings: {
@@ -297,6 +330,20 @@ export default {
     },
     uploadFile() {
 
+    },
+    alertModalClosed(choice) {
+      this.alertModalFlag = false;
+      if (choice) {
+        this.resetCode();
+      }
+    },
+    resetCodeBtnPressed() {
+      this.langPrecode = this.submission.src;
+      this.alertModalFlag = true;
+    },
+    resetCode() {
+      const langConf = this.languageConf[this.submission.lang];
+      this.langPrecode = langConf.precode;
     },
   },
 };

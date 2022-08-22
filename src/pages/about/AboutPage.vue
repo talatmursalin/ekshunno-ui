@@ -3,10 +3,7 @@
     <template slot="main-page">
       <section class="about">
         <p>
-          <a href="/"><img
-            src="../../assets/logo.png"
-            alt="ekShunno"
-          ></a> is a simple online code editor and executor.
+          <a href="/">ekshunno</a> is a simple open source online code editor and executor.
         </p>
       </section>
       <section class="sub-section tech">
@@ -130,8 +127,16 @@ export default {
   margin-top: 0px;
 }
 
-.about p img{
-    height: 30px;
+.about p a{
+  text-decoration: none;
+  color: var(--cyan);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.about p a:hover{
+  color: var(--purple);
+  transition: color 1s;
 }
 
 .tech h5{
